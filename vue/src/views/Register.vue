@@ -7,6 +7,15 @@
       </div>
       <div class="form-group">
         <input
+          type="email"
+          placeholder="E-mail: example@website.com"
+          class="form-control"
+          v-model="user.email"
+          required
+          />
+        </div>
+      <div class="form-group">
+        <input
           type="text"
           id="username"
           class="form-control"

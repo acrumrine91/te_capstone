@@ -34,9 +34,9 @@ namespace Capstone
             {
                 s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
-                    Version = "v1",
-                    Title = "Customize me in Startup.cs",
-                    Description = "Or just leave it with the default values and hope nobody notices..."
+                    Version = "V1",
+                    Title = "The Gulag Tournament Organizer",
+                    Description = "We help the weak put together STRONG tournament brackets to determine the ultimate beings."
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
