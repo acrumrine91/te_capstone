@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
+import CreateTournament from "../views/CreateTournament.vue"
 
 Vue.use(Router);
 
@@ -52,6 +53,14 @@ const router = new Router({
       meta: {
         requiresAuth: false,
       },
+    },
+    {
+      path: "/create-tournament",
+      name: "create-tournament",
+      component: CreateTournament,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: "*",

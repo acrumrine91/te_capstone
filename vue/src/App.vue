@@ -38,5 +38,5 @@ export default {
 <!-- Application-Wide Styles go here. 
      Any valid CSS or SCSS is allowable here. See https://sass-lang.com/documentation/style-rules for info on SCSS -->
 <style lang="scss">
-
+ 
 </style>

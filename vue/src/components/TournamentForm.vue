@@ -1,0 +1,75 @@
+<template>
+  <div class="form-group">
+    <input type="text" placeholder=" Name?" class="form-control" />
+    
+    <div class="btncontainer">
+    <input type="radio" class="btn" @change="isChecked" name="IRL" />
+    <label>Online</label>
+    <input type="radio" class="btn" @change="isChecked" name="IRL" checked />
+    <label>In-Person</label>
+    </div>
+
+    <input type="text" placeholder=" Link?" class="form-control" v-show="online" />
+    <input type="text" placeholder=" Zip Code?" class="form-control" v-show="inPerson" />   
+     <br />
+
+    <select class="form-control">
+      <option disabled selected>Size?</option>
+      <option value="Small">Small (8 or less)</option>
+      <option value="Medium">Medium (9 to 32)</option>
+      <option value="Large">Large (33 to 64)</option>
+      <option value="Massive">Massive (65+)</option>
+    </select>
+    <br />
+
+    <select class="form-control">
+      <option disabled selected>Style?</option>
+      <option value="Solo">Solo</option>
+      <option value="Teams">Teams</option>
+    </select>
+    <br />
+    <select class="form-control">
+      <option disabled selected>Match Style?</option>
+      <option value="1v1">1v1 (Team vs. Team)</option>
+      <option value="FFA">Free for All</option>
+    </select>
+    <br />
+    <input type="number" placeholder=" Match Size?" class="form-control" min="2">
+    <br />
+    <textarea
+      type="text"
+      style="height:150px"
+      placeholder=" Description?"
+      class="form-control"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+    methods: {
+        isChecked() {
+            this.online = !this.online;
+            this.inPerson = !this.inPerson;
+        }
+    },
+    data() {
+        return {
+            online: false,
+            inPerson: true,
+        }
+    } 
+};
+</script>
+
+<style>
+.btncontainer {
+    
+    margin:15px auto 10px;
+
+}
+.btn {
+    margin-left: 25px;
+    margin-right: 8px;
+}
+</style>
