@@ -25,8 +25,29 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 
+CREATE TABLE tournaments (
+	tournament_id int IDENTITY(1,1) NOT NULL,
+	user_id int NOT NULL,
+	name varchar (50) NOT NULL,
+	in_person bit NOT NULL,
+	zip_code int,
+	link varchar (200),
+	size varchar (10) NOT NULL,
+	style varchar (10) NOT NULL,
+	match_style varchar (20) NOT NULL,
+	match_size int NOT NULL,
+	descrption varchar NOT NULL,
+	registration_closed_date datetime NOT NULL,
+	start_date datetime NOT NULL,
+	registration_type varchar (20) NOT NULL,
+	CONSTRAINT PK_tournament PRIMARY KEY (tournament_id)
+)
+
 --populate default data: 'password'
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'user@gmail.com');
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@gmail.com');
+
+ALTER TABLE tournaments
+ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 GO

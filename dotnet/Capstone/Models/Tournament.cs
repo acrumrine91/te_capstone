@@ -7,6 +7,7 @@ namespace Capstone.Models
 {
     public class Tournament
     {
+        public int TournamentId { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
         public bool InPerson { get; set; }
