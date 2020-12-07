@@ -23,7 +23,8 @@ if(currentToken && currentToken != 'undefined') {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {} // If a user is an admin, their user.role will be 'admin'
+    user: currentUser || {}, // If a user is an admin, their user.role will be 'admin'
+    tournaments: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -41,6 +42,10 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    ADD_TOURNAMENT(state, payload) {
+      payload.userId = currentUser.userId;
+      state.tournaments.push(payload);
     }
   }
 })

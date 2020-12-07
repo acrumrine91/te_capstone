@@ -1,11 +1,11 @@
 <template>
   <div class="form-group">
-    <input required type="text" placeholder=" Name?" class="form-control" />
+    <input required type="text" placeholder=" Name?" class="form-control" v-model='newTournament.name'/>
 
     <div class="btncontainer">
-      <input type="radio" class="btn" @change="isChecked" name="IRL" />
+      <input type="radio" class="btn" @change="isChecked" name="IRL" :value="false" v-model='newTournament.inPerson'/>
       <label>Online</label>
-      <input type="radio" class="btn" @change="isChecked" name="IRL" checked />
+      <input type="radio" class="btn" @change="isChecked" name="IRL" :value="true" v-model='newTournament.inPerson' checked />
       <label>In-Person</label>
     </div>
 
@@ -14,44 +14,52 @@
       placeholder=" Link?"
       class="form-control"
       v-show="online"
+      v-model='newTournament.link'
     />
     <input
       type="text"
       placeholder=" Zip Code?"
       class="form-control"
       v-show="inPerson"
+      v-model='newTournament.zipCode'
     />
     <br />
     <div class="form-inline" id="backgroundline">
       <div class="dates">
-      <input required
-        type="date"
-        placeholder="Official Start Date:"
-        class="registrationDate"
-        :min="todaysDate"
-      />
-      <input required
-        type="time"
-        placeholder="Start Date:"
-        class="Time"
-      />
+        <input
+          required
+          type="datetime-local"
+          placeholder="Official Start Date:"
+          class="registrationDate"
+          :min="todaysDate"
+          v-model='this.startDay'
+        /> <!-- WE CANNOT FIGURE OUT HOW TO BIND THIS VALUE TO ANOTHER -->
+        <!-- <input required type="time" placeholder="Start Date:" class="Time" value='' v-model='this.startTime'/> -->
       </div>
       <div class="dates">
-      <input required
-        type="date"
-        placeholder="Registration Date:"
-        class="registrationDate"
-        :min="todaysDate"
-      />
-      <input required
-        type="time"
-        placeholder="Start Date:"
-        class="Time"
-      />
+        <input
+          required
+          type="datetime-local"
+          placeholder="Registration Date:"
+          class="registrationDate"
+          :min="todaysDate"
+          v-model='this.registrationDay' 
+        /> <!-- WE CANNOT FIGURE OUT HOW TO BIND THIS VALUE TO ANOTHER -->
+       <!-- <input required type="datetime-local" placeholder="Start Date:" class="Time" v-model='this.registrationTime'/> -->
       </div>
     </div>
     <br />
-    <select class="form-control" required>
+    <div>
+      <select class="form-control" required v-model='newTournament.registrationType'>
+        <option disabled selected hidden value="">Registration Type?</option>
+        <option value="Open">Open</option>
+        <option value="Invite Only">Invite Only</option>
+        <option value="Upon Request">Upon Request</option>
+        <option value="Invite or Request">Invite or Request</option>
+      </select>
+    </div>
+    <br />
+    <select class="form-control" required v-model='newTournament.size'>
       <option disabled selected hidden value="">Size?</option>
       <option value="Small">Small (8 or less)</option>
       <option value="Medium">Medium (9 to 32)</option>
@@ -60,51 +68,117 @@
     </select>
     <br />
 
-    <select class="form-control" required>
+    <select class="form-control" required v-model='newTournament.style'>
       <option disabled selected hidden value="">Style?</option>
       <option value="Solo">Solo</option>
       <option value="Teams">Teams</option>
     </select>
     <br />
-    <select class="form-control" required>
+    <select class="form-control" required v-model='newTournament.matchStyle'>
       <option disabled selected hidden value="">Match Style?</option>
       <option value="1v1">1v1 (Team vs. Team)</option>
       <option value="FFA">Free for All</option>
     </select>
     <br />
-    <input required
+    <input
+      required
       type="number"
       placeholder=" Match Size?"
       class="form-control"
       min="2"
+      v-model='newTournament.matchSize'
     />
     <br />
-    <textarea required
+    <textarea
+      required
       type="text"
       style="height: 150px"
       placeholder=" Description?"
       class="form-control"
+      v-model='newTournament.description'
     />
     <br />
-    <input type="button" class="right" id="submit" value="Create Tournament" />
+    <input type="button" class="right" id="submit" value="Create Tournament" @click.prevent="addTournament()"/>
   </div>
 </template>
 
 <script>
+import tournamentService from "../services/TournamentService.js";
+
 export default {
   methods: {
     isChecked() {
       this.online = !this.online;
       this.inPerson = !this.inPerson;
     },
+    addTournament() {
+      const toAdd = {
+        name: this.newTournament.name,
+        inPerson: this.newTournament.inPerson,
+        zipCode: this.newTournament.zipCode,
+        link: this.newTournament.link,
+        registrationType: this.newTournament.registrationType,
+        size: this.newTournament.size,
+        style: this.newTournament.style,
+        matchSize: this.newTournament.matchSize,
+        matchStyle: this.newTournament.matchStyle,
+        description: this.newTournament.description,
+        registrationDate: this.dateCalc(this.registrationTime, this.registrationDay),
+        startDate: this.dateCalc(this.startDay, this.startTime),
+        userId: 0, // TODO: REFERENCE THE ACTIVE USER'S ID
+      };
+      tournamentService.createNewTournament(toAdd)
+      .then(response => {
+        if (response.status === 201) {
+        this.newTournament.name = "";
+        this.newTournament.inPerson = true;
+        this.newTournament.zipCode = "";
+        this.newTournament.link = "";
+        this.newTournament.registrationType = "";
+        this.newTournament.size = "";
+        this.newTournament.style = "";
+        this.newTournament.matchSize = "";
+        this.newTournament.matchStyle = "";
+        this.newTournament.description = "";
+        this.newTournament.userId = 0;
+
+        this.$store.commit('ADD_TOURNAMENT', response.data);
+
+        this.$router.push({name: 'home'});
+      }
+      })
+      .catch(error => {
+        console.error("There was an error adding this tournament: " + error.message);
+      })
+    },
   },
   data() {
     return {
       online: false,
       inPerson: true,
+      newTournament: {
+        name: "",
+        inPerson: true,
+        zipCode: "",
+        link: "",
+        registrationType: "",
+        size: "",
+        style: "",
+        matchSize: "",
+        matchStyle: "",
+        description: "",
+        userId: 0,
+      },
+      startTime: "",
+      startDay: "",
+      registrationTime: "",
+      registrationDay: "",
     };
   },
   computed: {
+    dateCalc(day, time) {
+      return day.toString() + time.ToString();
+    },
     todaysDate() {
       let today = new Date();
       let dd = String(today.getDate()).padStart(2, "0");
@@ -173,5 +247,4 @@ input[type="date"]:valid:before {
 .Time {
   margin-right: 20px;
 }
-
 </style>
