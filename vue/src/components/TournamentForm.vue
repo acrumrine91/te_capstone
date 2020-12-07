@@ -13,8 +13,8 @@
     <input type="text" placeholder=" Zip Code?" class="form-control" v-show="inPerson" />   
      <br />
 
-    <select class="form-control">
-      <option disabled selected>Size?</option>
+    <select class="form-control" required>
+      <option disabled selected hidden value="">Size?</option>
       <option value="Small">Small (8 or less)</option>
       <option value="Medium">Medium (9 to 32)</option>
       <option value="Large">Large (33 to 64)</option>
@@ -22,14 +22,14 @@
     </select>
     <br />
 
-    <select class="form-control">
-      <option disabled selected>Style?</option>
+    <select class="form-control" required>
+      <option disabled selected hidden value="">Style?</option>
       <option value="Solo">Solo</option>
       <option value="Teams">Teams</option>
     </select>
     <br />
-    <select class="form-control">
-      <option disabled selected>Match Style?</option>
+    <select class="form-control" required>
+      <option disabled selected hidden value="">Match Style?</option>
       <option value="1v1">1v1 (Team vs. Team)</option>
       <option value="FFA">Free for All</option>
     </select>
@@ -42,6 +42,8 @@
       placeholder=" Description?"
       class="form-control"
     />
+    <br />
+    <input type="button" class="right" id="submit" value="Create Tournament"/>
   </div>
 </template>
 
@@ -72,4 +74,32 @@ export default {
     margin-left: 25px;
     margin-right: 8px;
 }
+
+#submit {
+  display: inline-block;
+  width: 160px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #00bc8c;
+  outline: none;
+  font-weight: bold;
+}
+
+#submit:hover {
+  background-color: #1a8a6e;
+}
+
+input.right {
+  float: right;
+}
+
+select:required:invalid {
+  color: grey !important;
+}
+
+option {
+  color: black !important;
+}
+
+
 </style>
