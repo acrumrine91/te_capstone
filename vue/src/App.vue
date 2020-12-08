@@ -5,7 +5,7 @@
   <div id="app" class="container"> <!-- If you start to get random styling you don't like, remove container from this div -->
     <div id="nav">
       <router-link class="nav-item" v-bind:to="{ name: 'home' }">
-        <i class="fas fa-home"></i> <!-- This is a font awesome icon -->
+        <img src="../public/GULOGO.png" id="logo" />
         Home 
       </router-link>
       <router-link
@@ -38,5 +38,15 @@ export default {
 <!-- Application-Wide Styles go here. 
      Any valid CSS or SCSS is allowable here. See https://sass-lang.com/documentation/style-rules for info on SCSS -->
 <style lang="scss">
- 
+ #logo {
+   height: 16px;
+   width: 16px;
+  margin-bottom: 3px;
+  margin-right: 2px;
+ }
+
+.nav-item {
+  margin-top: 100px;
+}
+
 </style>
