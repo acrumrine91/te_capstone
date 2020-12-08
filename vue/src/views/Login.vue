@@ -36,9 +36,10 @@
           required />
       </div>
       <div class="form-group">
-        <router-link :to="{ name: 'register' }">Need an account?</router-link>
+        <router-link :to="{ name: 'register' }">Need an Account? | </router-link>
+        <router-link :to="{ name: 'home' }">Browse as a Guest</router-link>
       </div>
-      <button class="btn btn-primary" type="submit">Sign in</button>
+      <button class="btn" id="submit" type="submit">Sign in</button>
     </form>
   </div>
 </template>
@@ -85,3 +86,31 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.btncontainer {
+  margin: 15px auto 10px;
+}
+
+.btn {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+#submit {
+  display: inline-block;
+  width: 110px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #00bc8c;
+  color: black;
+  outline: none;
+  font-weight: bold;
+}
+
+#submit:hover {
+  background-color: #1a8a6e;
+}
+
+</style>

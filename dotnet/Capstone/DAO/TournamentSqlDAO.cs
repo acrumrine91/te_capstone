@@ -19,7 +19,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public Tournament CreateTournament(Tournament newTournament)
+        public Tournament CreateTournament(Tournament newTournament, int userId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -28,7 +28,7 @@ namespace Capstone.DAO
                 SqlCommand cmd = new SqlCommand(sqlCreateTournament, conn);
                 //user_id, name, in_person, zip_code, link, size, style, match_style, match_size, 
                 //description, registration_closed_date, start_date, registration_type
-                cmd.Parameters.AddWithValue("@user_id", newTournament.UserId);
+                cmd.Parameters.AddWithValue("@user_id", userId); // GET THE REAL USER ID
                 cmd.Parameters.AddWithValue("@name", newTournament.Name);
                 cmd.Parameters.AddWithValue("@in_person", newTournament.InPerson);
                 cmd.Parameters.AddWithValue("@zip_code", newTournament.ZipCode);

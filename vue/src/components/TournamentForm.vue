@@ -21,7 +21,7 @@
       placeholder=" Zip Code?"
       class="form-control"
       v-show="inPerson"
-      v-model='newTournament.zipCode'
+      v-model.number='newTournament.zipCode'
     />
     <br />
     <div class="form-inline" id="backgroundline">
@@ -85,10 +85,10 @@
     <input
       required
       type="number"
-      placeholder=" Match Size?"
+      placeholder=" Match Size? (Players/Teams per match)"
       class="form-control"
       min="2"
-      v-model='newTournament.matchSize'
+      v-model.number='newTournament.matchSize'
     />
     <br />
     <textarea
@@ -131,7 +131,7 @@ export default {
         matchSize: this.newTournament.matchSize,
         matchStyle: this.newTournament.matchStyle,
         description: this.newTournament.description,
-        registrationDate: this.newTournament.registrationDate,
+        registrationClosedDate: this.newTournament.registrationDate, // These need to be in "yyyy-mm-dd hh:mi:ss" format
         startDate: this.newTournament.startDate,
         userId: 0, // TODO: REFERENCE THE ACTIVE USER'S ID
       };

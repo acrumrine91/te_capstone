@@ -8,6 +8,7 @@ namespace Capstone.Controllers
 {
     [Route("[controller]/tournament")]
     [ApiController]
+    [Authorize]
     public class TournamentController : ControllerBase
     {
         private readonly ITournamentDAO tournamentDAO;
@@ -18,9 +19,12 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("/create-tournament")]
+        [Authorize]
         public IActionResult CreateTournament(Tournament newTournament)
         {
-            Tournament result = this.tournamentDAO.CreateTournament(newTournament);
+            int userId = int.Parse(User.FindFirst("sub").Value);
+
+            Tournament result = this.tournamentDAO.CreateTournament(newTournament, userId);
 
             return Created("/" + newTournament.TournamentId.ToString(), newTournament);
         }

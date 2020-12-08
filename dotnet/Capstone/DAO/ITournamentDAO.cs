@@ -8,6 +8,6 @@ namespace Capstone.DAO
 {
     public interface ITournamentDAO
     {
-        Tournament CreateTournament(Tournament newTournament);
+        Tournament CreateTournament(Tournament newTournament, int userId);
     }
 }

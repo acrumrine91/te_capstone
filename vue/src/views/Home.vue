@@ -3,7 +3,7 @@
     <br />
     <h1>Welcome to The Gulag Tournament Organizer</h1>
     <br />
-    <h5>You have succesfully logged in, congrats!</h5>
+    <h5>Feel free to browse the tournaments below</h5>
     <br />
     <router-link id="submit" tag="button" v-bind:to="{name: 'create-tournament'}">
       Create Tournament
