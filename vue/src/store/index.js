@@ -25,6 +25,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {}, // If a user is an admin, their user.role will be 'admin'
     tournaments: [],
+    currentTournament: {},
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

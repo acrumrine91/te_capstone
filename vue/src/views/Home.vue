@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <br />
-    <h1>Welcome to The Gulag Tournament Organizer</h1>
+    <h1> <img src="../../public/GULOGO.png" id="preTitle" />
+      Welcome to The Gulag Tournament Organizer
+    </h1>
     <br />
     <h5>Feel free to browse the tournaments below</h5>
     <br />
@@ -30,5 +32,11 @@ export default {
 
 #submit:hover {
   background-color: #1a8a6e;
+}
+
+#preTitle {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 7px;
 }
 </style>
