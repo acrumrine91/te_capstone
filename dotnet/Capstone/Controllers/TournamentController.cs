@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
 {
-    [Route("[controller]/create-tournament")]
+    [Route("[controller]/tournament")]
     [ApiController]
     public class TournamentController : ControllerBase
     {
@@ -14,16 +14,15 @@ namespace Capstone.Controllers
 
         public TournamentController(ITournamentDAO _tournamentDAO)
         {
-            tournamentDAO = _tournamentDAO;
+            this.tournamentDAO = _tournamentDAO;
         }
 
-        [HttpPost]
-        public ActionResult<Tournament> CreateTournament(Tournament newTournament)
+        [HttpPost("/create-tournament")]
+        public IActionResult CreateTournament(Tournament newTournament)
         {
             Tournament result = this.tournamentDAO.CreateTournament(newTournament);
 
             return Created("/" + newTournament.TournamentId.ToString(), newTournament);
         }
-       
     }
 }

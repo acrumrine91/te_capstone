@@ -5,7 +5,7 @@ import axios from 'axios';
 export default {
 
   createTournament(newTournament) {
-    return axios.post('/Tournament/create-tournament', newTournament)
-  },
+    return axios.post('/tournament/create-tournament', newTournament)
+  }
 
 }

@@ -28,24 +28,26 @@
       <div class="dates">
         <input
           required
-          type="datetime-local"
+          type="date"
           placeholder="Official Start Date:"
           class="registrationDate"
           :min="todaysDate"
-          v-model='this.startDay'
+          v-model="startDay"
+          @input="startDateCalc"
         /> <!-- WE CANNOT FIGURE OUT HOW TO BIND THIS VALUE TO ANOTHER -->
-        <!-- <input required type="time" placeholder="Start Date:" class="Time" value='' v-model='this.startTime'/> -->
+        <input required type="time" placeholder="Start Date:" class="Time" value='' v-model="startTime" @input="startDateCalc"/>
       </div>
       <div class="dates">
         <input
           required
-          type="datetime-local"
+          type="date"
           placeholder="Registration Date:"
           class="registrationDate"
           :min="todaysDate"
-          v-model='this.registrationDay' 
+          v-model="registrationDay"
+          @input="registrationDateCalc"
         /> <!-- WE CANNOT FIGURE OUT HOW TO BIND THIS VALUE TO ANOTHER -->
-       <!-- <input required type="datetime-local" placeholder="Start Date:" class="Time" v-model='this.registrationTime'/> -->
+       <input required type="time" placeholder="Start Date:" class="Time" v-model="registrationTime" @input="registrationDateCalc"/>
       </div>
     </div>
     <br />
@@ -103,10 +105,16 @@
 </template>
 
 <script>
-import tournamentService from "../services/TournamentService.js";
+import tournamentService from "@/services/TournamentService.js";
 
 export default {
   methods: {
+    registrationDateCalc() {
+      this.newTournament.registrationDate = this.registrationDay + "T" + this.registrationTime;
+    },
+    startDateCalc() {
+      this.newTournament.startDate = this.startDay + "T" + this.startTime;
+    },
     isChecked() {
       this.online = !this.online;
       this.inPerson = !this.inPerson;
@@ -123,14 +131,14 @@ export default {
         matchSize: this.newTournament.matchSize,
         matchStyle: this.newTournament.matchStyle,
         description: this.newTournament.description,
-        registrationDate: this.dateCalc(this.registrationTime, this.registrationDay),
-        startDate: this.dateCalc(this.startDay, this.startTime),
+        registrationDate: this.newTournament.registrationDate,
+        startDate: this.newTournament.startDate,
         userId: 0, // TODO: REFERENCE THE ACTIVE USER'S ID
       };
-      tournamentService.createNewTournament(toAdd)
+      tournamentService.createTournament(toAdd)
       .then(response => {
         if (response.status === 201) {
-        this.newTournament.name = "";
+          this.newTournament.name = "";
         this.newTournament.inPerson = true;
         this.newTournament.zipCode = "";
         this.newTournament.link = "";
@@ -141,6 +149,8 @@ export default {
         this.newTournament.matchStyle = "";
         this.newTournament.description = "";
         this.newTournament.userId = 0;
+        this.newTournament.startDate = "";
+        this.newTournament.registrationDate = "";
 
         this.$store.commit('ADD_TOURNAMENT', response.data);
 
@@ -156,6 +166,10 @@ export default {
     return {
       online: false,
       inPerson: true,
+      startDay: "",
+      startTime: "",
+      registrationDay: "",
+      registrationTime: "",
       newTournament: {
         name: "",
         inPerson: true,
@@ -168,17 +182,12 @@ export default {
         matchStyle: "",
         description: "",
         userId: 0,
+        registrationDate: "",
+        startDate: "",
       },
-      startTime: "",
-      startDay: "",
-      registrationTime: "",
-      registrationDay: "",
     };
   },
   computed: {
-    dateCalc(day, time) {
-      return day.toString() + time.ToString();
-    },
     todaysDate() {
       let today = new Date();
       let dd = String(today.getDate()).padStart(2, "0");
