@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import TournamentForm from './TournamentForm.vue';
+import TournamentForm from '../TournamentForm.vue';
 
-import TournamentForm from "/TournamentForm.vue";
+
 
 export default {
   components: { TournamentForm },

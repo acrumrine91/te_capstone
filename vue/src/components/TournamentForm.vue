@@ -101,6 +101,41 @@
     />
     <br />
     <input type="button" class="right" id="submit" value="Create Tournament" @click.prevent="addTournament()"/>
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="preview">
+    <h1 class="centered">----------Preview----------</h1>
+    <h1 class="centered" v-if="this.newTournament.name"><img id="name-logo" src="../../public/GULOGO.png" />{{this.newTournament.name}}<img id="name-logo" src="../../public/GULOGO.png" /></h1>
+    <h3 class="centered">{{this.newTournament.description}}</h3>
+    <div class="container">
+      <div class="row title-row">
+    <div class="col">Tournament Info </div><div class="col"> Match Info</div>
+      </div>
+      <div class="row">
+    <div class="col">
+      <h3>Size: {{this.newTournament.size}}</h3>
+    <h3>Style: {{this.newTournament.style}}</h3>
+    <br />
+    <h2>Location Information</h2>
+    <h3 v-if="inPerson">Location: In-Person</h3>
+    <h3 v-else>Location: Online</h3>
+    <h3 v-if="inPerson">Zip Code: {{this.newTournament.zipCode}}</h3>
+    <h3 v-else>Link: {{this.newTournament.link}}</h3>
+    </div>
+    <div class="col right">
+    <h3>Match Size: {{this.newTournament.matchSize}}</h3>
+    <h3>Match Style: {{this.newTournament.matchStyle}}</h3>
+    <br />
+    <h2>Important Dates</h2>
+    <h3>Registration Type: {{this.newTournament.registrationType}}</h3>
+    <h3>Registration Date: {{this.newTournament.registrationDate}}</h3>
+    <h3>Start Date: {{this.newTournament.startDate}}</h3>
+      </div>
+      </div>
+  </div>
+  </div>
   </div>
 </template>
 
@@ -255,5 +290,28 @@ input[type="date"]:valid:before {
 }
 .Time {
   margin-right: 20px;
+}
+.preview {
+  color: #00bc8c;
+
+}
+.centered {
+  text-align: center;
+}
+h2 {
+  text-decoration: underline;
+}
+.row {
+  text-align: center;
+}
+.title-row {
+  font-size: 40px;
+  text-align: center;
+  text-decoration: underline;
+}
+#name-logo {
+  height: 60px;
+  width: 60px;
+  margin:0px 20px 7px;
 }
 </style>

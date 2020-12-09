@@ -8,13 +8,13 @@
     <form>
       <tournament-form />
     </form>
-    <div>{{TournamentForm.newTournament.name}}</div>
+
   </div>
 </template>
 
 <script>
 import TournamentForm from "../components/TournamentForm.vue";
-import {newTournament} from "../components/Tourname"
+
 
 export default {
   name: "create-tournament",
