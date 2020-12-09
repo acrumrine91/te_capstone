@@ -36,7 +36,7 @@ CREATE TABLE tournaments (
 	style varchar (10) NOT NULL,
 	match_style varchar (20) NOT NULL,
 	match_size int NOT NULL,
-	descrption varchar NOT NULL,
+	description varchar (5000) NOT NULL,
 	registration_closed_date datetime NOT NULL,
 	start_date datetime NOT NULL,
 	registration_type varchar (20) NOT NULL,
