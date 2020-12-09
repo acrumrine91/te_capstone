@@ -108,34 +108,44 @@
   <div class="preview">
     <h1 class="centered">----------Preview----------</h1>
     <h1 class="centered" v-if="this.newTournament.name"><img id="name-logo" src="../../public/GULOGO.png" />{{this.newTournament.name}}<img id="name-logo" src="../../public/GULOGO.png" /></h1>
+    <h3 class="centered" v-show="this.newTournament.registrationType">Registration Type: {{this.newTournament.registrationType}}</h3>
+    <br />
     <h3 class="centered">{{this.newTournament.description}}</h3>
+    <br />
     <div class="container">
       <div class="row title-row">
-    <div class="col">Tournament Info </div><div class="col"> Match Info</div>
       </div>
       <div class="row">
     <div class="col">
-      <h3>Size: {{this.newTournament.size}}</h3>
-    <h3>Style: {{this.newTournament.style}}</h3>
+    <h2 v-show="sizeOrStyle">Tournament Info </h2>
+      <h3 v-show="this.newTournament.size">Size: {{this.newTournament.size}}</h3>
+    <h3 v-show="this.newTournament.style">Style: {{this.newTournament.style}}</h3>
     <br />
-    <h2>Location Information</h2>
+    <div v-show="showLocationHeader">
+    <h2>Location Info</h2>
     <h3 v-if="inPerson">Location: In-Person</h3>
     <h3 v-else>Location: Online</h3>
     <h3 v-if="inPerson">Zip Code: {{this.newTournament.zipCode}}</h3>
     <h3 v-else>Link: {{this.newTournament.link}}</h3>
     </div>
+    </div>
     <div class="col right">
-    <h3>Match Size: {{this.newTournament.matchSize}}</h3>
-    <h3>Match Style: {{this.newTournament.matchStyle}}</h3>
+      <h2 v-show="matchSizeOrStyle">Match Info</h2>
+    <h3 v-show="this.newTournament.matchSize">Match Size: {{this.newTournament.matchSize}}</h3>
+    <h3 v-show="this.newTournament.matchStyle">Match Style: {{this.newTournament.matchStyle}}</h3>
     <br />
-    <h2>Important Dates</h2>
-    <h3>Registration Type: {{this.newTournament.registrationType}}</h3>
-    <h3>Registration Date: {{this.newTournament.registrationDate}}</h3>
-    <h3>Start Date: {{this.newTournament.startDate}}</h3>
+    <h2 v-show="registrationDateOrStartDate">Important Dates</h2>
+    <h3 v-show="this.newTournament.registrationDate">Register By: {{this.registrationDay}}</h3>
+    <h3 v-show="this.newTournament.registrationDate">{{this.registrationTimeDisplay}}</h3>
+    <h3 v-show="this.newTournament.startDate">Start Date: {{this.startDay}}</h3>
+    <h3 v-show="this.newTournament.startDate">{{this.startTimeDisplay}}</h3>
       </div>
       </div>
   </div>
   </div>
+  <br />
+  <br />
+  <br />
   </div>
 </template>
 
@@ -231,6 +241,60 @@ export default {
       today = yyyy + "/" + mm + "/" + dd;
       return today;
     },
+    sizeOrStyle() {
+      if (this.newTournament.size || this.newTournament.style || this.newTournament.registrationType) {
+        return true;
+      }
+        return false;
+    },
+    showLocationHeader() {
+      if (this.newTournament.zipCode || this.newTournament.link) {
+        return true;
+      }
+      return false;
+    },
+    matchSizeOrStyle() {
+      if (this.newTournament.matchSize || this.newTournament.matchStyle){
+        return true;
+      }
+      return false;
+    },
+    registrationDateOrStartDate() {
+      if (this.newTournament.registrationDate || this.newTournament.startDate) {
+        return true;
+      }
+      return false;
+    },
+    registrationTimeDisplay() {
+      let registrationHours = this.registrationTime.substring(0,2);
+      let registrationMinutes = this.registrationTime.split(":");
+      if (registrationHours > 12) {
+        registrationHours -= 12;
+        if (registrationHours < 10) {
+
+          registrationHours = "0" + registrationHours.toString();
+        }
+        registrationMinutes[1] += "pm";
+      } else {
+        registrationMinutes[1] += "am";
+      }
+      return "@ " + registrationHours + ":" + registrationMinutes[1];
+    },
+        startTimeDisplay() {
+      let startHours = this.startTime.substring(0,2);
+      let startMinutes = this.startTime.split(":");
+      if (startHours > 12) {
+        startHours -= 12;
+        if (startHours < 10) {
+
+          startHours = "0" + startHours.toString();
+        }
+        startMinutes[1] += "pm";
+      } else {
+        startMinutes[1] += "am";
+      }
+      return "@ " + startHours + ":" + startMinutes[1];
+    }
   },
 };
 </script>
