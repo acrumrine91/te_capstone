@@ -45,9 +45,8 @@
       <div class="form-group">
         <router-link :to="{ name: 'login' }">Have an account?</router-link>
       </div>
-      <button class="btn btn-primary" type="submit">
-        Create Account
-      </button>
+      <br/>
+      <input type="button"  id="submit" value ="Create Account" @click="register()"/>   
     </form>
   </div>
 </template>
@@ -102,4 +101,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.btncontainer {
+  margin: 15px auto 10px;
+}
+.btn {
+  margin-left: 25px;
+  margin-right: 8px;
+}
+
+#submit {
+  display: inline-block;
+  width: 160px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #00bc8c;
+  outline: none;
+  font-weight: bold;
+}
+
+#submit:hover {
+  background-color: #1a8a6e;
+}
+</style>
