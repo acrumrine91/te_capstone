@@ -199,7 +199,7 @@ export default {
 
         this.$store.commit('ADD_TOURNAMENT', response.data);
 
-        this.$router.push({name: 'home'});
+        this.$router.push({name: 'browse'});
       }
       })
       .catch(error => {

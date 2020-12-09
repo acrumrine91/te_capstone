@@ -6,6 +6,7 @@ import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
 import CreateTournament from "../views/CreateTournament.vue"
+import BrowseTournaments from "../views/BrowseTournaments.vue"
 
 Vue.use(Router);
 
@@ -66,6 +67,14 @@ const router = new Router({
       path: "*",
       redirect: "/",
     },
+    {
+      path: "/browse",
+      name: "browse",
+      component: BrowseTournaments,
+      meta: {
+        requiresAuth: false,
+      }
+      },
   ],
 });
 
