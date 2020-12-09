@@ -1,11 +1,13 @@
 <template>
-  <div class="home">
+  <div class="home" id="home">
     <br />
-    <h1> <img src="../../public/GULOGO.png" id="preTitle" />
-      Welcome to The Gulag Tournament Organizer
+    <h1> <img src="../../public/GULOGO.png" id="pre-title" />
+      Welcome to Gauntlet
     </h1>
+    <img src="../../public/dark.jpg" id="home-image"/>
     <br />
-    <h5>Feel free to browse the tournaments below</h5>
+    <br />
+    <h5>Your one stop shop to create, organize, or join any type of tournament!</h5>
     <br />
     <router-link id="submit" tag="button" v-bind:to="{name: 'create-tournament'}">
       Create Tournament
@@ -20,6 +22,10 @@ export default {
 </script>
 
 <style>
+* {
+  align-content: center !important;
+}
+
 #submit {
   display: inline-block;
   width: 160px;
@@ -34,9 +40,15 @@ export default {
   background-color: #1a8a6e;
 }
 
-#preTitle {
+#pre-title {
   height: 100px;
   width: 100px;
   margin-bottom: 7px;
 }
+
+#home-image {
+  height: 250px;
+  width: auto;  
+}
+
 </style>
