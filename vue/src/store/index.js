@@ -48,6 +48,9 @@ export default new Vuex.Store({
       payload.userId = currentUser.userId;
       state.tournaments.push(payload);
       
+    },
+    TOURNAMENTS_LOADED(state, payload) {
+      state.tournaments = payload;  
     }
   }
 })

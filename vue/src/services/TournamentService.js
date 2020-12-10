@@ -6,6 +6,9 @@ export default {
 
   createTournament(newTournament) {
     return axios.post('/create-tournament', newTournament)
+  },
+  getAllTournaments(){
+    return axios.get('/browse')
   }
 
 }

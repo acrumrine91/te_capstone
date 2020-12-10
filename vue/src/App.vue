@@ -30,8 +30,22 @@
 </template>
 
 <script>
+import TournamentService from "@/services/TournamentService.js";
+
 export default {
-  
+  created() {
+    TournamentService.getAllTournaments()
+      .then(response => {
+        if (response.status == 200){
+          this.$store.commit('TOURNAMENTS_LOADED', response.data);
+        } else {
+          console.log("Whatever");
+        }
+      })
+      .catch(err => {
+        console.error('Error getting data: ' + err.message);
+      })
+  }
 }
 </script>
 

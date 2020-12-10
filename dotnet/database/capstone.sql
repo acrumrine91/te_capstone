@@ -47,7 +47,6 @@ CREATE TABLE tournaments (
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'user@gmail.com');
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@gmail.com');
 
-ALTER TABLE tournaments
-ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
+
 
 GO
