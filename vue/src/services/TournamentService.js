@@ -9,6 +9,9 @@ export default {
   },
   getAllTournaments(){
     return axios.get('/browse')
-  }
+  },
+  getTournamentDetails(tournamentId) {
+    return axios.get(`/${tournamentId}`)
+  },
 
 }

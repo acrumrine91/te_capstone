@@ -7,6 +7,7 @@ import Register from "../views/Register.vue";
 import store from "../store/index";
 import CreateTournament from "../views/CreateTournament.vue"
 import BrowseTournaments from "../views/BrowseTournaments.vue"
+import TournamentDetails from "../views/TournamentDetails.vue"
 
 Vue.use(Router);
 
@@ -75,7 +76,15 @@ const router = new Router({
         requiresAuth: false,
       }
       },
-  ],
+    {
+      path: "/:tournamentId",
+      name: "tournament-details",
+      component: TournamentDetails,
+      meta: {
+        requiresAuth: false,
+      }
+    },
+    ],
 });
 
 router.beforeEach((to, from, next) => {

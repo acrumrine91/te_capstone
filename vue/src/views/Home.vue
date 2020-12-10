@@ -12,8 +12,11 @@
     <h5>Your one stop shop to create, organize, or join any type of tournament!</h5>
     <br />
     <div id="button-center">
-    <router-link id="submit" tag="button" v-bind:to="{name: 'create-tournament'}">
+    <router-link class="submit" tag="button" v-bind:to="{name: 'create-tournament'}">
       Create Tournament
+    </router-link>
+    <router-link class="submit" tag="button" v-bind:to="{name: 'browse'}">
+      Browse Tournaments
     </router-link>
     </div>
   </div>
@@ -29,7 +32,8 @@ export default {
 #button-center {
   text-align: center;
 }
-#submit {
+
+.submit {
   display: inline-block;
   width: 160px;
   height: 50px;
@@ -37,11 +41,10 @@ export default {
   background-color: #00bc8c;
   outline: none;
   font-weight: bold;
-  
- 
+  margin: 0 20px;
 }
 
-#submit:hover {
+.submit:hover {
   background-color: #1a8a6e;
 }
 

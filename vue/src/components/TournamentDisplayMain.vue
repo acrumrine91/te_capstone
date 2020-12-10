@@ -28,11 +28,11 @@
     <h3 v-show="this.newTournament.matchSize">Match Size: {{this.newTournament.matchSize}}</h3>
     <h3 v-show="this.newTournament.matchStyle">Match Style: {{this.newTournament.matchStyle}}</h3>
     <br />
-    <h2 v-show="registrationDateOrStartDate">Important Dates</h2>
+    <!-- <h2 v-show="registrationDateOrStartDate">Important Dates</h2>
     <h3 v-show="this.newTournament.registrationDate">Register By: {{this.registrationDay}}</h3>
     <h3 v-show="this.newTournament.registrationDate">{{this.registrationTimeDisplay}}</h3>
     <h3 v-show="this.newTournament.startDate">Start Date: {{this.startDay}}</h3>
-    <h3 v-show="this.newTournament.startDate">{{this.startTimeDisplay}}</h3>
+    <h3 v-show="this.newTournament.startDate">{{this.startTimeDisplay}}</h3> -->
       </div>
       </div>
   </div>
@@ -41,7 +41,12 @@
 
 <script>
 export default {
-
+  // computed: {
+  //   currentTournament() {
+  //     return this.$store.state.tournaments.filter(tournament => tournament.id == 1)
+  //   }
+  // },
+  props: ['newTournament']
 }
 </script>
 
