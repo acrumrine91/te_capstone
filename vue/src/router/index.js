@@ -77,7 +77,7 @@ const router = new Router({
       }
       },
     {
-      path: "/:tournamentId",
+      path: "/tournaments/:tournamentId",
       name: "tournament-details",
       component: TournamentDetails,
       meta: {

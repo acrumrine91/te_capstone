@@ -13,7 +13,8 @@
     </thead>
     <tbody>
       <tr v-for="tournament in tournaments" v-bind:key="tournament.name">
-        <td>{{tournament.name}}</td>
+        
+        <td><router-link :to="{name: 'tournament-details', params: {tournamentId: tournament.tournamentId}}">{{tournament.name}}</router-link></td>
         <td>{{tournament.style}}
           <!-- This should navigate to the product details page 
           <router-link v-bind:to="{name: 'browse-tournaments', params: {productId: product.id}}">
@@ -24,7 +25,6 @@
         <td>{{tournament.startDate}}</td>
         <td>{{tournament.registrationClosedDate}}</td>
         <td>{{tournament.description}}</td>
-      
       </tr>
     </tbody>
   </table>

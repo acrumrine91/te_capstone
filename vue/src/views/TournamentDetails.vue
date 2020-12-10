@@ -1,6 +1,5 @@
 <template>
 <div>
-    <h1>hello</h1>
   <tournament-display-main v-bind:tournamentDetails="tournament" />
   </div>
 </template>
