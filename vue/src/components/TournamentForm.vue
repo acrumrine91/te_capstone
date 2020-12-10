@@ -165,7 +165,7 @@ export default {
       this.inPerson = !this.inPerson;
     },
     addTournament() {
-      const toAdd = {
+      let toAdd = {
         name: this.newTournament.name,
         inPerson: this.newTournament.inPerson,
         zipCode: this.newTournament.zipCode,

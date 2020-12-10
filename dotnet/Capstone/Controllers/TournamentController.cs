@@ -3,6 +3,7 @@ using Capstone.DAO;
 using Capstone.Models;
 using Capstone.Security;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
@@ -27,6 +28,19 @@ namespace Capstone.Controllers
             Tournament result = this.tournamentDAO.CreateTournament(newTournament, userId);
 
             return Created("/" + newTournament.TournamentId.ToString(), newTournament);
+        }
+
+        [HttpGet("/browse")]
+        [AllowAnonymous]
+        public IActionResult GetAllTournaments()
+        {
+            List<Tournament> result = new List<Tournament>();
+
+            result = this.tournamentDAO.GetAllTournaments();
+
+            return Ok(result);
+
+
         }
     }
 }

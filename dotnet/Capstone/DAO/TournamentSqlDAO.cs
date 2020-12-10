@@ -14,6 +14,8 @@ namespace Capstone.DAO
         private string sqlCreateTournament = "INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, match_style, match_size, description, registration_closed_date, start_date, registration_type)" +
             "VALUES (@user_id, @name, @in_person, @zip_code, @link, @size, @style, @match_style, @match_size, @description, @registration_closed_date, @start_date, @registration_type)";
 
+        private string sqlGetAllTournaments = "SELECT * FROM tournaments;";
+
         public TournamentSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -44,6 +46,44 @@ namespace Capstone.DAO
                 cmd.ExecuteNonQuery();
             }
             return newTournament;
+        }
+
+        public List<Tournament> GetAllTournaments()
+        {
+            List<Tournament> allTournaments = new List<Tournament>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sqlGetAllTournaments, conn);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Tournament currTourn = new Tournament();
+
+                        currTourn.TournamentId = Convert.ToInt32(reader["tournament_id"]);
+                        currTourn.UserId = Convert.ToInt32(reader["user_id"]);
+                        currTourn.Name = Convert.ToString(reader["name"]);
+                        currTourn.InPerson = Convert.ToBoolean(reader["in_person"]);
+                        currTourn.ZipCode = Convert.ToInt32(reader["zip_code"]);
+                        currTourn.Link = Convert.ToString(reader["link"]);
+                        currTourn.Size = Convert.ToString(reader["size"]);
+                        currTourn.Style = Convert.ToString(reader["style"]);
+                        currTourn.MatchStyle = Convert.ToString(reader["match_style"]);
+                        currTourn.MatchSize = Convert.ToInt32(reader["match_size"]);
+                        currTourn.Description = Convert.ToString(reader["description"]);
+                        currTourn.RegistrationClosedDate = Convert.ToDateTime(reader["registration_closed_date"]);
+                        currTourn.StartDate = Convert.ToDateTime(reader["start_date"]);
+                        currTourn.RegistrationType = Convert.ToString(reader["registration_type"]);
+
+                        allTournaments.Add(currTourn);
+                    }
+                }
+            }
+            return allTournaments;
         }
     }
 }
