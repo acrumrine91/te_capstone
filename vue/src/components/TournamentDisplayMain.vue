@@ -57,7 +57,9 @@ export default {
     tournament() {
       const id = this.$route.params.tournamentId;
       return this.$store.state.tournaments.find(tournament => tournament.tournamentId == id);
-    }
+    },
+
+    
   },
 
 }
