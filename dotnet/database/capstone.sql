@@ -32,7 +32,7 @@ CREATE TABLE tournaments (
 	in_person bit NOT NULL,
 	zip_code int,
 	link varchar (200),
-	size varchar (10) NOT NULL,
+	size varchar (20) NOT NULL,
 	style varchar (10) NOT NULL,
 	match_style varchar (20) NOT NULL,
 	match_size int NOT NULL,
