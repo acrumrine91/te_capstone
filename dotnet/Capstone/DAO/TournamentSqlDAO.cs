@@ -12,7 +12,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private string sqlCreateTournament = "INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, match_style, match_size, description, registration_closed_date, start_date, registration_type)" +
-            "VALUES (@user_id, @name, @in_person, @zip_code, @link, @size, @style, @match_style, @match_size, @description, @registration_closed_date, @start_date, @registration_type)";
+            "VALUES (@user_id, @name, @in_person, @zip_code, @link, @size, @style, @match_style, @match_size, @description, @registration_closed_date, @start_date, @registration_type); SELECT @@IDENTITY";
 
         private string sqlGetAllTournaments = "SELECT * FROM tournaments;";
 
@@ -43,7 +43,9 @@ namespace Capstone.DAO
                 cmd.Parameters.AddWithValue("@registration_closed_date", newTournament.RegistrationClosedDate);
                 cmd.Parameters.AddWithValue("@start_date", newTournament.StartDate);
                 cmd.Parameters.AddWithValue("@registration_type", newTournament.RegistrationType);
-                cmd.ExecuteNonQuery();
+                newTournament.TournamentId = Convert.ToInt32(cmd.ExecuteScalar());
+                newTournament.UserId = userId;
+
             }
             return newTournament;
         }

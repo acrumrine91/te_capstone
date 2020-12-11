@@ -1,5 +1,6 @@
 <template>
   <div class="preview">
+    <div v-if="this.tournament">
     <br />
     <br />
     <h1 class="centered"><img id="name-logo" src="../../public/GULOGO.png" />{{this.tournament.name}}<img id="name-logo" src="../../public/GULOGO.png" /></h1>
@@ -36,6 +37,7 @@
       </div>
       </div>
   </div>
+    </div>
   </div>
 </template>
 
@@ -51,10 +53,13 @@ export default {
       tournaments: this.$store.state.tournaments,
     }
   },
-  created() {
-    const id = this.$route.params.tournamentId;
-    this.tournament = this.$store.state.tournaments.find(tournament => tournament.tournamentId === id)
-  }
+  computed: {
+    tournament() {
+      const id = this.$route.params.tournamentId;
+      return this.$store.state.tournaments.find(tournament => tournament.tournamentId == id);
+    }
+  },
+
 }
 </script>
 

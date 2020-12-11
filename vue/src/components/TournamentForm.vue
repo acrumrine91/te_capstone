@@ -180,12 +180,17 @@ export default {
         startDate: this.newTournament.startDate,
         userId: 0, // TODO: REFERENCE THE ACTIVE USER'S ID
       };
+      
+      if (!toAdd.zipCode) {
+        toAdd.zipCode = 0;
+      }
+
       tournamentService.createTournament(toAdd)
       .then(response => {
         if (response.status === 201) {
           this.newTournament.name = "";
         this.newTournament.inPerson = true;
-        this.newTournament.zipCode = 0;
+        this.newTournament.zipCode = "";
         this.newTournament.link = "";
         this.newTournament.registrationType = "";
         this.newTournament.size = "";
@@ -218,7 +223,7 @@ export default {
       newTournament: {
         name: "",
         inPerson: true,
-        zipCode: 0,
+        zipCode: "",
         link: "",
         registrationType: "",
         size: "",

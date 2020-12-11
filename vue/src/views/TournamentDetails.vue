@@ -1,6 +1,6 @@
 <template>
 <div>
-  <tournament-display-main v-bind:tournamentDetails="tournament" />
+  <tournament-display-main/>
   </div>
 </template>
 

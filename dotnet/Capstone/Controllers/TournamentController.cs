@@ -27,7 +27,7 @@ namespace Capstone.Controllers
 
             Tournament result = this.tournamentDAO.CreateTournament(newTournament, userId);
 
-            return Created("/" + newTournament.TournamentId.ToString(), newTournament);
+            return Created("/" + result.TournamentId.ToString(), result);
         }
 
         [HttpGet("/browse")]
