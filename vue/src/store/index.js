@@ -26,6 +26,64 @@ export default new Vuex.Store({
     user: currentUser || {}, // If a user is an admin, their user.role will be 'admin'
     tournaments: [],
     currentTournament: {},
+    users: [
+      {
+        user_id: 3,
+        username: "dim_slash",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "user55@gmail.com"
+      },
+      {
+        user_id: 4,
+        username: "dim_slash_brother",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "user555@gmail.com"
+      },
+      {
+        user_id: 5,
+        username: "hairiest_man",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "user5@gmail.com"
+      },
+      {
+        user_id: 6,
+        username: "worthless_can_of_yeast",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "users@gmail.com"
+      },
+      {
+        user_id: 7,
+        username: "dimmest_slash",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "userslam@gmail.com"
+      },
+      {
+        user_id: 8,
+        username: "come_on_and_slam",
+        password_hash: "jam",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "spacejam@gmail.com"
+      },
+      {
+        user_id: 9,
+        username: "water_on_the_knee",
+        password_hash: "operation",
+        salt: "LAX77753",
+        user_role: "user",
+        email: "quidditch@gmail.com"
+      },
+    ]
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
