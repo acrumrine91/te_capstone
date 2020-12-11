@@ -45,6 +45,7 @@ export default {
     tournaments() {
       return this.$store.state.tournaments;
     },
+    
   },
 };
 </script>
