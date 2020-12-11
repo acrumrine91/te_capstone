@@ -18,9 +18,9 @@
     <br />
     <div>
     <h2>Location Info</h2>
-    <h3 v-if="inPerson">Location: In-Person</h3>
+    <h3 v-if="this.tournament.inPerson">Location: In-Person</h3>
     <h3 v-else>Location: Online</h3>
-    <h3 v-if="inPerson">Zip Code: {{this.tournament.zipCode}}</h3>
+    <h3 v-if="this.tournament.inPerson">Zip Code: {{this.tournament.zipCode}}</h3>
     <h3 v-else>Link: {{this.tournament.link}}</h3>
     <br />
     </div>

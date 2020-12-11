@@ -6,12 +6,6 @@ export default {
 
   createTournament(newTournament) {
 
-    // if (newTournament.inPerson == "inPerson") {
-    //   newTournament.inPerson = true;
-    // } else {
-    //   newTournament.inPerson = false;
-    // }
-
     return axios.post('/create-tournament', newTournament)
   },
   getAllTournaments(){

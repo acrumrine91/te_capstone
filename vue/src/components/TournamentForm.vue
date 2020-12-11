@@ -13,7 +13,7 @@
       type="text"
       placeholder=" Link?"
       class="form-control"
-      v-show="online"
+      v-show="!inPerson"
       v-model='newTournament.link'
     />
     <input
@@ -161,7 +161,7 @@ export default {
       this.newTournament.startDate = this.startDay + "T" + this.startTime;
     },
     isChecked() {
-      this.online = !this.online;
+
       this.inPerson = !this.inPerson;
     },
     addTournament() {
@@ -185,7 +185,7 @@ export default {
         if (response.status === 201) {
           this.newTournament.name = "";
         this.newTournament.inPerson = true;
-        this.newTournament.zipCode = "";
+        this.newTournament.zipCode = 0;
         this.newTournament.link = "";
         this.newTournament.registrationType = "";
         this.newTournament.size = "";
@@ -209,7 +209,7 @@ export default {
   },
   data() {
     return {
-      online: false,
+
       inPerson: true,
       startDay: "",
       startTime: "",
@@ -218,7 +218,7 @@ export default {
       newTournament: {
         name: "",
         inPerson: true,
-        zipCode: "",
+        zipCode: 0,
         link: "",
         registrationType: "",
         size: "",
