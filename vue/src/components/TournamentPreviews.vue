@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="tournament in tournaments" v-bind:key="tournament.tournamentId">
+      <tr v-for="(tournament, index) in tournaments" v-bind:key="tournament.tournamentId">
         <td>
           <router-link
             :to="{
@@ -31,8 +31,8 @@
         </td>
         <td v-if="tournament.inPerson">{{ tournament.zipCode }}</td>
         <td v-else>{{ tournament.link }}</td>
-        <td>{{ tournament.startDate }}</td>
-        <td>{{ tournament.registrationClosedDate }}</td>
+        <td>{{ tournament.startDate.substring(0,10)}}</td>
+        <td>{{ tournament.registrationClosedDate.substring(0,10) }}</td>
         <td>{{ tournament.description }}</td>
       </tr>
     </tbody>
@@ -45,7 +45,6 @@ export default {
     tournaments() {
       return this.$store.state.tournaments;
     },
-    
   },
 };
 </script>
