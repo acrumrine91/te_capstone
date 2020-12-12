@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(tournament, index) in tournaments" v-bind:key="tournament.tournamentId">
+      <tr v-for="(tournament) in tournaments" v-bind:key="tournament.tournamentId">
         <td>
           <router-link
             :to="{

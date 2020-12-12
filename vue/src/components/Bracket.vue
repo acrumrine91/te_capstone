@@ -1,6 +1,54 @@
 <template>
   <div>
-<h1>2013 NCAA Tournament - Midwest Bracket</h1>
+    <h1>This is the test bracket</h1>
+  <main id="tournament">
+    <ul class="round round-1">
+      <div v-for="user in usersInTourney" v-bind:key="user.user_id">
+      <li class="spacer">&nbsp;</li>
+
+      <li class="game game-top winner">{{user.username}}</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-bottom">IDK</li>
+    </div>
+    <li class="spacer">&nbsp;</li>
+    </ul>
+    <ul class="round round-2">
+      <div v-for="user in usersInTourneyRound2" v-bind:key="user.user_id" >
+      <li class="spacer">&nbsp;</li>
+      
+
+      <li class="game game-top winner">{{user.username}}</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-bottom">IDK</li>
+      <li class="spacer">&nbsp;</li>
+    </div>
+    </ul>
+        <ul class="round round-3">
+      <div v-for="user in usersInTourneyRound3" v-bind:key="user.user_id">
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+
+      <li class="game game-top winner">{{user.username}}</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-spacer">&nbsp;</li>
+      <li class="game game-bottom">IDK</li>
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+      <li class="spacer">&nbsp;</li>
+    </div>
+    </ul>
+    </main>
+
+
+<!-- <h1>2013 NCAA Tournament - Midwest Bracket</h1>
 <main id="tournament">
   <ul class="round round-1">
     <li class="spacer">&nbsp;</li>
@@ -104,7 +152,7 @@
     
     <li class="spacer">&nbsp;</li>
   </ul>   
-</main>
+</main> -->
 
 
   </div>
@@ -116,7 +164,9 @@ export default {
     name: 'bracket',
     data() {
         return {
-        usersInTourney: this.$store.state.users
+        usersInTourney: this.$store.state.users,
+        usersInTourneyRound2: this.$store.state.users.filter(user => user.user_id % 2 == 0),
+        usersInTourneyRound3: this.$store.state.users.filter(user => user.user_id % 4 == 0)
     }}
 
 }
@@ -165,14 +215,14 @@ li.game{
     margin-right:5px;
   }
 
-  li.game-top{ border-bottom:1px solid #aaa; }
+  li.game-top{ border-bottom:1px solid #00bc8c; }
 
   li.game-spacer{ 
-    border-right:1px solid #aaa;
+    border-right:1px solid #00bc8c;
     min-height:40px;
   }
 
   li.game-bottom{ 
-    border-top:1px solid #aaa;
+    border-top:1px solid #00bc8c;
   }
 </style>
