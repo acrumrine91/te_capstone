@@ -59,38 +59,38 @@ export default new Vuex.Store({
         user_role: "user",
         email: "users@gmail.com"
       },
-      //  {
-      //    user_id: 7,
-      //    username: "dimmest_slash",
-      //    password_hash: "jam",
-      //    salt: "LAX77753",
-      //    user_role: "user",
-      //    email: "userslam@gmail.com"
-      //  },
-      //  {
-      //    user_id: 8,
-      //    username: "come_on_and_slam",
-      //    password_hash: "jam",
-      //    salt: "LAX77753",
-      //    user_role: "user",
-      //    email: "spacejam@gmail.com"
-      //  },
-      //  {
-      //    user_id: 9,
-      //    username: "water_on_the_knee",
-      //    password_hash: "operation",
-      //    salt: "LAX77753",
-      //    user_role: "user",
-      //    email: "quidditch@gmail.com"
-      //  },
-      // {
-      //   user_id: 10,
-      //   username: "Testing_another",
-      //   password_hash: "lostname",
-      //   salt: "stoptellingmenotaword",
-      //   user_role: "user",
-      //   email: "quidditch2@gmail.com"
-      // },
+       {
+         user_id: 7,
+         username: "dimmest_slash",
+         password_hash: "jam",
+         salt: "LAX77753",
+         user_role: "user",
+         email: "userslam@gmail.com"
+       },
+       {
+         user_id: 8,
+         username: "come_on_and_slam",
+         password_hash: "jam",
+         salt: "LAX77753",
+         user_role: "user",
+         email: "spacejam@gmail.com"
+       },
+       {
+         user_id: 9,
+         username: "water_on_the_knee",
+         password_hash: "operation",
+         salt: "LAX77753",
+         user_role: "user",
+         email: "quidditch@gmail.com"
+       },
+      {
+        user_id: 10,
+        username: "Testing_another",
+        password_hash: "lostname",
+        salt: "stoptellingmenotaword",
+        user_role: "user",
+        email: "quidditch2@gmail.com"
+      },
     ]
   },
   mutations: {
