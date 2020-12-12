@@ -1,24 +1,25 @@
 <template>
   <div>
-    <h1>This is the test bracket</h1>
+    <br />
+    <h1>Bracket Preview (Not Final)</h1>
     <main id="tournament">
       <ul class="round round-1">
         <div v-for="user in buildMatchups" v-bind:key="user.user_id">
           <li class="spacer">&nbsp;</li>
 
-          <li class="game game-top winner">{{ user.username }}</li>
+          <li class="game game-top" @click="declareWinner($event)" :id="user.username">{{ user.username }}</li>
           <li class="game game-spacer">&nbsp;</li>
-          <li class="game game-bottom">{{user.opponent}}</li>
+          <li class="game game-bottom" @click="declareWinner($event)" :id="user.opponent">{{user.opponent}}</li>
         </div>
         <li class="spacer">&nbsp;</li>
       </ul>
       <ul class="round round-2">
-        <div v-for="user in buildMatchupsRound2" v-bind:key="user.user_id">
+        <div v-for="user in buildMatchupsRoundTwo" v-bind:key="user.user_id">
           <li class="spacer">&nbsp;</li>
 
-          <li class="game game-top winner"></li>
+          <li class="game game-top">{{user.username}}</li>
           <li class="game game-spacer">&nbsp;</li>
-          <li class="game game-bottom"></li>
+          <li class="game game-bottom">{{user.opponent}}</li>
           <li class="spacer">&nbsp;</li>
         </div>
 
@@ -28,7 +29,7 @@
           <li class="spacer">&nbsp;</li>
 
 
-          <li class="game game-top winner"></li>
+          <li class="game game-top"></li>
           <li class="game game-spacer">&nbsp;</li>
           <li class="game game-bottom"></li>
           <li class="spacer">&nbsp;</li>
@@ -39,12 +40,12 @@
         <div>
 
 
-          <li class="game game-top winner"></li>
+          <li class="game game-top"></li>
         </div>
       </ul>
       <ul class="round round-5">
         <div v-show="false" v-for="user in usersInTourneyRound4" v-bind:key="user.user_id">
-          <li class="game game-top winner">{{ user.username }}</li>
+          <li class="game game-top">{{ user.username }}</li>
         </div>
       </ul>
     </main>
@@ -56,6 +57,7 @@ export default {
   name: "bracket",
   data() {
     return {
+
       usersInTourney: this.$store.state.users,
       usersInTourneyRound2: this.$store.state.users.filter(
         (user) => user.user_id % 2 == 0
@@ -66,8 +68,27 @@ export default {
       usersInTourneyRound4: this.$store.state.users.filter(
         (user) => user.user_id == 5
       ),
-
+      roundOneWinners: [],
+      roundTwoWinners: [],
     };
+  },
+  methods: {
+    declareWinner(e) {
+      e.target.classList.toggle('winner');
+      if (!this.roundOneWinners.includes(e.target.id)) {
+        this.roundOneWinners.push(e.target.id);
+        console.log("something");
+      }
+      else {
+        for (let i = 0; i < this.roundOneWinners.length; i++ ) {
+          if (this.roundOneWinners[i]) {
+            console.log("hi")
+          }
+      }
+        this.roundOneWinners.splice(this.roundOneWinners.indexOf(e.target.id),1);
+        console.log("something else");
+      }
+    }
   },
   computed: {
     findTopUsersInMatch() {
@@ -101,7 +122,33 @@ export default {
     },
     buildMatchupsRound3() {
       return [1];
-    }
+    },
+    findTopUsersInRoundTwo() {
+      const topUsersRoundTwo= [];
+      for (let i = 0; i < this.roundOneWinners.length; i+=2 ) {
+          topUsersRoundTwo.push(this.roundOneWinners[i])
+      }
+      return topUsersRoundTwo;
+    },
+    findBottomUsersInRoundTwo() {
+      const bottomUsersRoundTwo= [];
+      for (let i = 1; i < this.roundOneWinners.length; i+=2 ) {
+          bottomUsersRoundTwo.push(this.roundOneWinners[i])
+      }
+      return bottomUsersRoundTwo;
+    },
+    buildMatchupsInRoundTwo() {
+      const matchup= [];
+      const topUsers= this.findTopUsersInRoundTwo;
+      const bottomUsers = this.findBottomUsersInRoundTwo;
+      for (let i = 0; i < topUsers.length; i++) {
+        matchup[i] = {
+          username: topUsers[i],
+          opponent: bottomUsers[i],
+        };
+      }
+      return matchup;
+    },
     
   }
 };
@@ -151,7 +198,8 @@ li.game {
 }
 
 li.game.winner {
-  font-weight: bold;
+  font-weight: bolder;
+  color: red;
 }
 li.game span {
   float: right;
