@@ -7,19 +7,28 @@
         <div v-for="user in buildMatchups" v-bind:key="user.user_id">
           <li class="spacer">&nbsp;</li>
 
-          <li class="game game-top" @click="declareWinner($event)" :id="user.username">{{ user.username }}</li>
+          <li class="game game-top" @click="declareWinner($event, user.username)" :id="user.username.username">{{ user.username.username }}</li>
           <li class="game game-spacer">&nbsp;</li>
-          <li class="game game-bottom" @click="declareWinner($event)" :id="user.opponent">{{user.opponent}}</li>
+          <li class="game game-bottom" @click="declareWinner($event, user.opponent)" :id="user.opponent.username">{{user.opponent.username}}</li>
         </div>
         <li class="spacer">&nbsp;</li>
       </ul>
+      
       <ul class="round round-2">
-        <div v-for="user in buildMatchupsRoundTwo" v-bind:key="user.user_id">
+        <div v-show="roundOneWinners.lemgth == 4" v-for="user in buildMatchupsRoundTwo" v-bind:key="user.user_id">
           <li class="spacer">&nbsp;</li>
 
           <li class="game game-top">{{user.username}}</li>
           <li class="game game-spacer">&nbsp;</li>
           <li class="game game-bottom">{{user.opponent}}</li>
+          <li class="spacer">&nbsp;</li>
+        </div>
+        <div v-show="roundOneWinners.lemgth != 4" v-for="user in buildMatchupsRound2" v-bind:key="user">
+          <li class="spacer">&nbsp;</li>
+
+          <li class="game game-top"></li>
+          <li class="game game-spacer">&nbsp;</li>
+          <li class="game game-bottom"></li>
           <li class="spacer">&nbsp;</li>
         </div>
 
@@ -111,8 +120,8 @@ export default {
       const bottomUsers = this.findBottomUsersInMatch;
       for (let i = 0; i < topUsers.length; i++) {
         matchup[i] = {
-          username: topUsers[i].username,
-          opponent: bottomUsers[i].username,
+          username: topUsers[i],
+          opponent: bottomUsers[i],
         };
       }
       return matchup;
