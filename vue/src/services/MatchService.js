@@ -5,13 +5,13 @@ import axios from 'axios';
 export default {
 
     PostTournamentMatches(matches, tournament_id) {
-        return axios.post(`/Match/${tournament_id}`, tournament_id);
+        return axios.post(`/Match/${tournament_id}`, matches);
     },
     getAllMatches(tournament_id) {
         return axios.get(`/Match/${tournament_id}`);
     },
-    updateMatchResults(tournament_round_matchId) {
-        return axios.put(`/Match/${tournament_round_matchId}`);
+    updateMatchResults(matches, tournament_id) {
+        return axios.put(`/Match/${tournament_id}`, matches);
     },
 
 }

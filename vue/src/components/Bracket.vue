@@ -173,6 +173,9 @@
 </template>
 
 <script>
+
+import matchService from "@/services/MatchService.js";
+
 export default {
   name: "bracket",
   data() {
@@ -365,7 +368,28 @@ export default {
       return matchup;
     },
     submitMatches() {
-      
+      let matchesToSubmit = [
+        this.roundOneMatches,
+        this.roundTwoMatches,
+        this.roundThreeMatches,
+        this.roundFourMatches,
+        this.roundFiveMatches,
+        this.roundSixMatches,
+        this.roundSevenMatches,
+      ];
+        matchesToSubmit = matchesToSubmit.filter(round => round.length != 0);
+
+        matchService.updateMatchResults(matchesToSubmit, this.$route.params.tournamentId)
+        .then(response => {
+          if (response.status === 200){
+            this.$store.commit('POST_TOURNAMENT_MATCHES', response.data);
+            // Get all matches from DB
+            this.$router.push({name: 'tournament-details'})
+          }
+        })
+        .catch(e => {
+          console.log("Error updating bracket! " + e.message)
+        })
     }
   },
 };
