@@ -8,7 +8,7 @@
           <li class="spacer">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinner(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -16,7 +16,7 @@
           <li class="game game-spacer">&nbsp;</li>
           <li
             class="game game-bottom actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'false' }"
+            v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
             @click="declareWinner(match, match.bottomUser)"
           >
             {{ match.bottomUser }}
@@ -26,11 +26,11 @@
       </ul>
       <ul class="round round-2">
         <div v-for="match in roundTwoMatches" v-bind:key="match.matchId">
-          <li class="spacer">&nbsp;</li>
+          <li class="spacer" v-show="roundOneMatches.length != 1">&nbsp;</li>
 
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinnerRoundTwo(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -39,22 +39,22 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false' }"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
               @click="declareWinnerRoundTwo(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
-            <li class="spacer">&nbsp;</li>
+            <li class="spacer" v-show="roundOneMatches.length != 1">&nbsp;</li>
           </div>
         </div>
       </ul>
-      <ul class="round round-3">
+      <ul class="round round-3" v-show="usersInTourney.length > 3">
         <div v-for="match in roundThreeMatches" v-bind:key="match.matchId">
-          <li class="spacer">&nbsp;</li>
+          <li class="spacer" v-show="roundTwoMatches.length != 1">&nbsp;</li>
 
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinnerRoundThree(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -63,21 +63,21 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false' }"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
               @click="declareWinnerRoundThree(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
-            <li class="spacer">&nbsp;</li>
+            <li class="spacer" v-show="roundTwoMatches.length != 1">&nbsp;</li>
           </div>
         </div>
       </ul>
-      <ul class="round round-4">
+      <ul class="round round-4" v-show="usersInTourney.length > 7">
         <div v-for="match in roundFourMatches" v-bind:key="match.matchId">
-          <li class="spacer">&nbsp;</li>
+          <li class="spacer" v-show="roundThreeMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinnerRoundFour(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -86,21 +86,21 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false' }"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
               @click="declareWinnerRoundFour(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
-            <li class="spacer">&nbsp;</li>
+            <li class="spacer" v-show="roundThreeMatches.length != 1">&nbsp;</li>
           </div>
         </div>
       </ul>
-      <ul class="round round-5">
+      <ul class="round round-5" v-show="usersInTourney.length > 15">
         <div v-for="match in roundFiveMatches" v-bind:key="match.matchId">
-          <li class="spacer">&nbsp;</li>
+          <li class="spacer" v-show="roundFourMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinnerRoundFive(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -109,22 +109,22 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false' }"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
               @click="declareWinnerRoundFive(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
     
-            <li class="spacer">&nbsp;</li>
+            <li class="spacer" v-show="roundFourMatches.length != 1">&nbsp;</li>
           </div>
         </div>
       </ul>
-      <!-- <ul class="round round-6">
+      <ul class="round round-6" v-show="usersInTourney.length > 31">
         <div v-for="match in roundSixMatches" v-bind:key="match.matchId">
-          <li class="spacer">&nbsp;</li>
+          <li class="spacer" v-show="roundFiveMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true' }"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
             @click="declareWinnerRoundSix(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -133,18 +133,38 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false' }"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
               @click="declareWinnerRoundSix(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
-            </li>
-    
-            <li class="spacer">&nbsp;</li>
+            </li>    
+            <li class="spacer" v-show="roundFiveMatches.length != 1">&nbsp;</li>
           </div>
         </div>
       </ul> 
-      Finish the logic for round 6 and finish round 7!!!
-      -->
+      <ul class="round round-7" v-show="usersInTourney.length > 63">
+        <div v-for="match in roundSevenMatches" v-bind:key="match.matchId">
+          <li class="spacer" v-show="roundSixMatches.length != 1">&nbsp;</li>
+          <li
+            class="game game-top actual-game"
+            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            @click="declareWinnerRoundSeven(match, match.topUser)"
+          >
+            {{ match.topUser }}
+          </li>
+          <div v-show="roundSixMatches.length != 1">
+            <li class="game game-spacer">&nbsp;</li>
+            <li
+              class="game game-bottom actual-game"
+              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              @click="declareWinnerRoundSeven(match, match.bottomUser)"
+            >
+              {{ match.bottomUser }}
+            </li>    
+            <li class="spacer" v-show="roundSixMatches.length != 1">&nbsp;</li>
+          </div>
+        </div>
+      </ul> 
     </main>
   </div>
 </template>
@@ -154,22 +174,14 @@ export default {
   name: "bracket",
   data() {
     return {
-      matchOver: false,
       usersInTourney: this.$store.state.users,
-      usersInTourneyRound2: this.$store.state.users.filter(
-        (user) => user.user_id % 2 == 0
-      ),
-      usersInTourneyRound3: this.$store.state.users.filter(
-        (user) => user.user_id % 4 == 0
-      ),
-      usersInTourneyRound4: this.$store.state.users.filter(
-        (user) => user.user_id == 5
-      ),
       roundOneMatches: [],
       roundTwoMatches: [],
       roundThreeMatches: [],
       roundFourMatches: [],
       roundFiveMatches: [],
+      roundSixMatches: [],
+      roundSevenMatches: [],
     };
   },
   created() {
@@ -178,6 +190,8 @@ export default {
     this.roundThreeMatches = this.buildBlankMatchups(4);
     this.roundFourMatches = this.buildBlankMatchups(8);
     this.roundFiveMatches = this.buildBlankMatchups(16);
+    this.roundSixMatches = this.buildBlankMatchups(32);
+    this.roundSevenMatches = this.buildBlankMatchups(64);
   },
   methods: {
     declareWinner(match, winner) {
@@ -280,13 +294,33 @@ export default {
         }
       }
     },
+    declareWinnerRoundSix(match, winner) {
+      if (winner == match.topUser) {
+        match.topUserWon = "true";
+      } else {
+        match.topUserWon = "false";
+      }
+      if (match.matchId == 0 || match.matchId == 1) {
+        if (match.matchId % 2 == 0) {
+          this.roundSevenMatches[match.matchId].topUser = winner;
+        } else {
+          this.roundSevenMatches[match.matchId - 1].bottomUser = winner;
+        }
+      } else {
+        if (match.matchId % 2 == 0) {
+          this.roundSevenMatches[match.matchId / 2].topUser = winner;
+        } else {
+          this.roundSevenMatches[(match.matchId - 1) / 2].bottomUser = winner;
+        }
+      }
+    },
     buildBlankMatchups(input) {
       const matchup = [];
       for (let i = 0; i < this.usersInTourney.length / (input * 2); i++) {
         matchup[i] = {
           matchId: i,
-          topUser: "tbd",
-          bottomUser: "tbd",
+          topUser: "TBD",
+          bottomUser: "TBD",
           topUserWon: "",
         };
       }
@@ -313,97 +347,6 @@ export default {
       }
       console.log("test");
       return matchup;
-    },
-  },
-
-  computed: {
-    // findTopUsersInMatch() {
-    //   const topUsers= [];
-    //   for (let i = 0; i < this.$store.state.users.length; i+=2 ) {
-    //       topUsers.push(this.$store.state.users[i])
-    //   }
-    //   return topUsers;
-    // },
-    // findBottomUsersInMatch() {
-    //   const bottomUsers= [];
-    //   for (let i = 1; i < this.$store.state.users.length; i+=2 ) {
-    //       bottomUsers.push(this.$store.state.users[i])
-    //   }
-    //   return bottomUsers;
-    // },
-    // buildMatchups() {
-    //   const matchup= [];
-    //   const topUsers= this.findTopUsersInMatch;
-    //   const bottomUsers = this.findBottomUsersInMatch;
-    //   for (let i = 0; i < (topUsers.length); i++) {
-    //     matchup[i] = {
-    //       username: topUsers[i],
-    //       opponent: bottomUsers[i],
-    //     };
-    //   }
-    //   return matchup;
-    // },
-
-    buildMatchupsRound2() {
-      return [1, 2];
-    },
-    buildMatchupsRound3() {
-      return [1];
-    },
-    findTopUsersInRoundTwo() {
-      const topUsersRoundTwo = [];
-      for (let i = 0; i < this.roundOneWinners.length; i += 2) {
-        topUsersRoundTwo.push(this.roundOneWinners[i]);
-      }
-      return topUsersRoundTwo;
-    },
-    findBottomUsersInRoundTwo() {
-      const bottomUsersRoundTwo = [];
-      for (let i = 1; i < this.roundOneWinners.length; i += 2) {
-        bottomUsersRoundTwo.push(this.roundOneWinners[i]);
-      }
-      return bottomUsersRoundTwo;
-    },
-    buildMatchupsRoundTwo() {
-      const matchup = [];
-      const topUsers = this.findTopUsersInRoundTwo;
-      const bottomUsers = this.findBottomUsersInRoundTwo;
-      for (let i = 0; i < topUsers.length; i++) {
-        matchup[i] = {
-          username: topUsers[i],
-          opponent: bottomUsers[i],
-        };
-      }
-      return matchup;
-    },
-    findTopUsersInRoundThree() {
-      const topUsersRoundThree = [];
-      for (let i = 0; i < this.roundTwoWinners.length; i += 2) {
-        topUsersRoundThree.push(this.roundTwoWinners[i]);
-      }
-      return topUsersRoundThree;
-    },
-    findBottomUsersInRoundThree() {
-      const bottomUsersRoundThree = [];
-      for (let i = 1; i < this.roundTwoWinners.length; i += 2) {
-        bottomUsersRoundThree.push(this.roundTwoWinners[i]);
-      }
-      return bottomUsersRoundThree;
-    },
-    buildMatchupsRoundThree() {
-      const matchup = [];
-      const topUsers = this.findTopUsersInRoundThree;
-      const bottomUsers = this.findBottomUsersInRoundThree;
-      for (let i = 0; i < topUsers.length; i++) {
-        matchup[i] = {
-          username: topUsers[i],
-          opponent: bottomUsers[i],
-        };
-      }
-      return matchup;
-    },
-    findWinner() {
-      return this.roundThreeWinners;
     },
   },
 };
@@ -453,7 +396,7 @@ li.game {
 
 li.game.winner {
   font-weight: bolder;
-  color: red;
+  color: #00bc8c;
   text-decoration: none !important;
 }
 li.game span {
@@ -463,6 +406,7 @@ li.game span {
 
 li.game-top {
   border-bottom: 1px solid #00bc8c;
+  cursor:pointer;
 }
 
 li.game-spacer {
@@ -495,13 +439,23 @@ li.game-spacer {
 .round-5 li.game-spacer {
   min-height: 780px;
 }
+.round-6 li.spacer {
+  height: 360px;
+}
+.round-6 li.game-spacer {
+  min-height: 1550px;
+}
+.round-7 li.spacer {
+  height: 0;
+}
+
 li.game-bottom {
   border-top: 1px solid #00bc8c;
+  cursor: pointer;
 }
-div.loser .actual-game {
+ li.game.loser {
   text-decoration: line-through;
+  color: orangered;
 }
-main#tournament:first-child {
-  background-color: purple !important;
-}
+
 </style>
