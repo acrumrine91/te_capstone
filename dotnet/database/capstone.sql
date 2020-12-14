@@ -22,7 +22,7 @@ CREATE TABLE users (
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL,
 	email varchar(50) NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
+	CONSTRAINT PK_user PRIMARY KEY (user_id),
 )
 
 CREATE TABLE tournaments (
@@ -42,6 +42,20 @@ CREATE TABLE tournaments (
 	registration_type varchar (20) NOT NULL,
 	CONSTRAINT PK_tournament PRIMARY KEY (tournament_id)
 )
+
+CREATE TABLE matches (
+	tournament_round_match_id varchar (20) NOT NULL,
+	tournament_id int NOT NULL,
+	round_id int NOT NULL,
+	match_id int NOT NULL,
+	top_user varchar (50) NOT NULL,
+	bottom_user varchar (50) NOT NULL,
+	winner bit,
+	CONSTRAINT PK_tournament_round_match_id PRIMARY KEY (tournament_round_match_id)
+	
+	
+
+
 
 --populate default data: 'password'
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'user@gmail.com');

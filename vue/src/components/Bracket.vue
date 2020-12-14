@@ -323,9 +323,28 @@ export default {
           bottomUser: "TBD",
           topUserWon: "",
         };
+          console.debug(this.calculateRound(input, 0))
       }
       return matchup;
     },
+    calculateRound(input, roundNum) {
+      let test = input;
+      test /= 2;
+      if (test > 1){
+        roundNum++;
+        this.calculateRound(test, roundNum);
+      }
+      else {
+        return roundNum
+      }
+    },
+
+    // this.roundTwoMatches = this.buildBlankMatchups(2);
+    // this.roundThreeMatches = this.buildBlankMatchups(4);
+    // this.roundFourMatches = this.buildBlankMatchups(8);
+    // this.roundFiveMatches = this.buildBlankMatchups(16);
+    // this.roundSixMatches = this.buildBlankMatchups(32);
+    // this.roundSevenMatches = this.buildBlankMatchups(64);
 
     buildOfficialMatchups() {
       const matchup = [];
@@ -343,6 +362,7 @@ export default {
           topUser: topUsers[i].username,
           bottomUser: bottomUsers[i].username,
           topUserWon: "",
+          roundId: 0
         };
       }
       console.log("test");
