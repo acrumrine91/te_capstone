@@ -2,6 +2,8 @@
   <div>
     <br />
     <h1>Bracket Preview (Not Final)</h1>
+    <br/>
+    <input class="btn submit" type="button" @click.prevent="submitMatches" value="Save Changes" /> 
     <main id="tournament">
       <ul class="round round-1">
         <div v-for="match in roundOneMatches" v-bind:key="match.matchId">
@@ -166,6 +168,7 @@
         </div>
       </ul> 
     </main>
+    <input class="btn submit" type="button" @click.prevent="submitMatches" value="Save Changes" /> 
   </div>
 </template>
 
@@ -322,8 +325,8 @@ export default {
           topUser: "TBD",
           bottomUser: "TBD",
           topUserWon: "",
+          roundId: this.calculateRound(input, 0),
         };
-          console.debug(this.calculateRound(input, 0))
       }
       return matchup;
     },
@@ -332,19 +335,12 @@ export default {
       test /= 2;
       if (test > 1){
         roundNum++;
-        this.calculateRound(test, roundNum);
+        return this.calculateRound(test, roundNum);
       }
       else {
-        return roundNum
+        return roundNum + 1;
       }
     },
-
-    // this.roundTwoMatches = this.buildBlankMatchups(2);
-    // this.roundThreeMatches = this.buildBlankMatchups(4);
-    // this.roundFourMatches = this.buildBlankMatchups(8);
-    // this.roundFiveMatches = this.buildBlankMatchups(16);
-    // this.roundSixMatches = this.buildBlankMatchups(32);
-    // this.roundSevenMatches = this.buildBlankMatchups(64);
 
     buildOfficialMatchups() {
       const matchup = [];
@@ -368,6 +364,9 @@ export default {
       console.log("test");
       return matchup;
     },
+    submitMatches() {
+      
+    }
   },
 };
 </script>
@@ -476,6 +475,9 @@ li.game-bottom {
  li.game.loser {
   text-decoration: line-through;
   color: orangered;
+ }
+.btn.submit {
+  float: right;
 }
 
 </style>

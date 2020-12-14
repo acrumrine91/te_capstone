@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
-    [Route("[controller]/tournament")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class TournamentController : ControllerBase
@@ -19,7 +19,7 @@ namespace Capstone.Controllers
             this.tournamentDAO = _tournamentDAO;
         }
 
-        [HttpPost("/create-tournament")]
+        [HttpPost("create-tournament")]
         [Authorize]
         public IActionResult CreateTournament(Tournament newTournament)
         {
@@ -30,7 +30,7 @@ namespace Capstone.Controllers
             return Created("/" + result.TournamentId.ToString(), result);
         }
 
-        [HttpGet("/browse")]
+        [HttpGet("browse")]
         [AllowAnonymous]
         public IActionResult GetAllTournaments()
         {
@@ -39,8 +39,6 @@ namespace Capstone.Controllers
             result = this.tournamentDAO.GetAllTournaments();
 
             return Ok(result);
-
-
         }
     }
 }

@@ -57,7 +57,7 @@ const router = new Router({
       },
     },
     {
-      path: "/create-tournament",
+      path: "/tournament/create-tournament",
       name: "create-tournament",
       component: CreateTournament,
       meta: {
@@ -69,7 +69,7 @@ const router = new Router({
       redirect: "/",
     },
     {
-      path: "/browse",
+      path: "/tournament/browse",
       name: "browse",
       component: BrowseTournaments,
       meta: {
@@ -77,7 +77,7 @@ const router = new Router({
       }
       },
     {
-      path: "/tournaments/:tournamentId",
+      path: "/tournament/:tournamentId",
       name: "tournament-details",
       component: TournamentDetails,
       meta: {
