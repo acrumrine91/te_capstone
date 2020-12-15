@@ -33,7 +33,8 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("{tournamentId}")]
-        public IActionResult AddMatches(int tournamentId, List<Match> matches)
+        [AllowAnonymous]
+        public IActionResult AddMatches(List<Match> matches, int tournamentId)
         {
 
             int matchesAdded = this.matchesDAO.PostTournamentMatches(matches, tournamentId);

@@ -359,7 +359,7 @@ export default {
                 matchService.PostTournamentMatches(
                   this.allMatches,
                   this.$store.state.currentTournament.tournamentId
-                );
+                ).then(response => { if(response.status === 201){ this.$store.commit('POST_TOURNAMENT_MATCHES', response.data)}});
               }
               this.consolidateAllRounds();
               this.consolidateAllMatches();
