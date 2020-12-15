@@ -2,15 +2,23 @@
   <div>
     <br />
     <h1>Bracket Preview (Not Final)</h1>
-    <br/>
-    <input class="btn submit" type="button" @click.prevent="submitMatches" value="Save Changes" /> 
+    <br />
+    <input
+      class="btn submit"
+      type="button"
+      @click.prevent="submitMatches"
+      value="Save Changes"
+    />
     <main id="tournament">
       <ul class="round round-1">
         <div v-for="match in roundOneMatches" v-bind:key="match.matchId">
           <li class="spacer">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinner(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -18,7 +26,10 @@
           <li class="game game-spacer">&nbsp;</li>
           <li
             class="game game-bottom actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'false',
+              loser: match.topUserWon == 'true',
+            }"
             @click="declareWinner(match, match.bottomUser)"
           >
             {{ match.bottomUser }}
@@ -32,7 +43,10 @@
 
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinnerRoundTwo(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -41,7 +55,10 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundTwo(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
@@ -56,7 +73,10 @@
 
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinnerRoundThree(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -65,7 +85,10 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundThree(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
@@ -79,7 +102,10 @@
           <li class="spacer" v-show="roundThreeMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinnerRoundFour(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -88,12 +114,17 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundFour(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
-            <li class="spacer" v-show="roundThreeMatches.length != 1">&nbsp;</li>
+            <li class="spacer" v-show="roundThreeMatches.length != 1">
+              &nbsp;
+            </li>
           </div>
         </div>
       </ul>
@@ -102,7 +133,10 @@
           <li class="spacer" v-show="roundFourMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinnerRoundFive(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -111,12 +145,15 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundFive(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
             </li>
-    
+
             <li class="spacer" v-show="roundFourMatches.length != 1">&nbsp;</li>
           </div>
         </div>
@@ -126,7 +163,10 @@
           <li class="spacer" v-show="roundFiveMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
             @click="declareWinnerRoundSix(match, match.topUser)"
           >
             {{ match.topUser }}
@@ -135,22 +175,27 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundSix(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
-            </li>    
+            </li>
             <li class="spacer" v-show="roundFiveMatches.length != 1">&nbsp;</li>
           </div>
         </div>
-      </ul> 
+      </ul>
       <ul class="round round-7" v-show="usersInTourney.length > 63">
         <div v-for="match in roundSevenMatches" v-bind:key="match.matchId">
           <li class="spacer" v-show="roundSixMatches.length != 1">&nbsp;</li>
           <li
             class="game game-top actual-game"
-            v-bind:class="{ winner: match.topUserWon == 'true', loser: match.topUserWon == 'false' }"
-            @click="declareWinnerRoundSeven(match, match.topUser)"
+            v-bind:class="{
+              winner: match.topUserWon == 'true',
+              loser: match.topUserWon == 'false',
+            }"
           >
             {{ match.topUser }}
           </li>
@@ -158,23 +203,31 @@
             <li class="game game-spacer">&nbsp;</li>
             <li
               class="game game-bottom actual-game"
-              v-bind:class="{ winner: match.topUserWon == 'false', loser: match.topUserWon == 'true' }"
+              v-bind:class="{
+                winner: match.topUserWon == 'false',
+                loser: match.topUserWon == 'true',
+              }"
               @click="declareWinnerRoundSeven(match, match.bottomUser)"
             >
               {{ match.bottomUser }}
-            </li>    
+            </li>
             <li class="spacer" v-show="roundSixMatches.length != 1">&nbsp;</li>
           </div>
         </div>
-      </ul> 
+      </ul>
     </main>
-    <input class="btn submit" type="button" @click.prevent="submitMatches" value="Save Changes" /> 
+    <input
+      class="btn submit"
+      type="button"
+      @click.prevent="submitMatches"
+      value="Save Changes"
+    />
   </div>
 </template>
 
 <script>
-
 import matchService from "@/services/MatchService.js";
+import TournamentService from "@/services/TournamentService.js";
 
 export default {
   name: "bracket",
@@ -191,60 +244,68 @@ export default {
     };
   },
   created() {
-    this.usersInTourney = this.setInitialUsers();
-
-    this.roundOneMatches = this.buildOfficialMatchups();
-    this.roundTwoMatches = this.buildBlankMatchups(2);
-    this.roundThreeMatches = this.buildBlankMatchups(4);
-    this.roundFourMatches = this.buildBlankMatchups(8);
-    this.roundFiveMatches = this.buildBlankMatchups(16);
-    this.roundSixMatches = this.buildBlankMatchups(32);
-    this.roundSevenMatches = this.buildBlankMatchups(64);
+    this.setInitialUsers();
+    // Put all of these below into then block
   },
   methods: {
-    setInitialUsers(){
-      matchService.getAllMatches(this.$route.params.tournamentId)
-        .then(response => {
-          if(response.status == 200){
-            response.data.foreach(match => {
-              if (!this.usersInTourney.contains(match.TopUser)){
-                this.usersInTourney = this.usersInTourney.replace("TBD", match.TopUser)
+    setInitialUsers() {
+      TournamentService.getAllTournaments()
+      .then(response => {
+        if (response.status == 200) {
+          this.$store.state.tournaments = response.data;
+        }
+      console.log("Filling initial bracket... ");
+        let maxUsers = 0;
+        const currTourn = this.$store.state.tournaments.find(
+          (tournament) =>
+            tournament.tournamentId == this.$route.params.tournamentId
+        );
+        console.log(currTourn);
+        if (currTourn.size == "Small (8 or less)") {
+          maxUsers = 8;
+        } else if (currTourn.size == "Medium (Up to 16)") {
+          maxUsers = 16;
+        } else if (currTourn.size == "Large (Up to 32)") {
+          maxUsers = 32;
+        } else {
+          maxUsers = 64;
+        }
+        for (let i = 0; i < maxUsers; i++) {
+          //const newUser = "TBD";
+          const newUser = (Math.floor(Math.random() * 1000)).toString()
+  
+          this.usersInTourney.push(newUser);
+        }
+      matchService
+        .getAllMatches(this.$route.params.tournamentId)
+        .then((response) => {
+          if (response.status == 200) {
+            response.data.forEach((match) => {
+              if (!this.usersInTourney.contains(match.TopUser)) {
+                this.usersInTourney = this.usersInTourney.replace(
+                  "TBD",
+                  match.TopUser
+                );
               }
-              if (!this.usersInTourney.contains(match.BottomUser)){
-                this.usersInTourney = this.usersInTourney.replace("TBD", match.BottomUser)
+              if (!this.usersInTourney.contains(match.BottomUser)) {
+                this.usersInTourney = this.usersInTourney.replace(
+                  "TBD",
+                  match.BottomUser
+                );
               }
-            })
+            });
+            this.roundOneMatches = this.buildOfficialMatchups();
+            this.roundTwoMatches = this.buildBlankMatchups(2);
+            this.roundThreeMatches = this.buildBlankMatchups(4);
+            this.roundFourMatches = this.buildBlankMatchups(8);
+            this.roundFiveMatches = this.buildBlankMatchups(16);
+            this.roundSixMatches = this.buildBlankMatchups(32);
+            this.roundSevenMatches = this.buildBlankMatchups(64);
           }
+                  })
         })
-        .catch(e => {
-          console.log("no user data found: " + e)
-          if(!this.usersInTourney){
-            let maxUsers = 0;
-      let tbdUsers = [];
-     const currTourn = this.$store.state.tournaments.find(tournament => tournament.tournamentId == this.$route.tournamentId);
-      if(currTourn.size == "Small (Up to 8)"){
-        maxUsers = 8;
-      }
-      else if(currTourn.size == "Medium (Up to 16)"){
-        maxUsers = 16;
-      }
-      else if(currTourn.size == "Large (Up to 32)"){
-        maxUsers = 32;
-      }
-      else{
-        maxUsers = 64;
-      }
-    for(let i = 0; i < (maxUsers); i++){
-      const newUser = "TBD"
-      
-      tbdUsers.push(newUser)
-    }
-
-    return tbdUsers;
-      }
-        
-      })
-
+        .catch(() => {
+        });
     },
     declareWinner(match, winner) {
       if (winner == match.topUser) {
@@ -382,11 +443,10 @@ export default {
     calculateRound(input, roundNum) {
       let test = input;
       test /= 2;
-      if (test > 1){
+      if (test > 1) {
         roundNum++;
         return this.calculateRound(test, roundNum);
-      }
-      else {
+      } else {
         return roundNum + 1;
       }
     },
@@ -407,10 +467,9 @@ export default {
           topUser: topUsers[i],
           bottomUser: bottomUsers[i],
           topUserWon: "",
-          roundId: 0
+          roundId: 0,
         };
       }
-      console.log("test");
       return matchup;
     },
     submitMatches() {
@@ -423,20 +482,21 @@ export default {
         this.roundSixMatches,
         this.roundSevenMatches,
       ];
-        matchesToSubmit = matchesToSubmit.filter(round => round.length != 0);
+      matchesToSubmit = matchesToSubmit.filter((round) => round.length != 0);
 
-        matchService.updateMatchResults(matchesToSubmit, this.$route.params.tournamentId)
-        .then(response => {
-          if (response.status === 200){
-            this.$store.commit('POST_TOURNAMENT_MATCHES', response.data);
+      matchService
+        .updateMatchResults(matchesToSubmit, this.$route.params.tournamentId)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$store.commit("POST_TOURNAMENT_MATCHES", response.data);
             // Get all matches from DB
-            this.$router.push({name: 'tournament-details'})
+            this.$router.push({ name: "tournament-details" });
           }
         })
-        .catch(e => {
-          console.log("Error updating bracket! " + e.message)
-        })
-    }
+        .catch((e) => {
+          console.log("Error updating bracket! " + e.message);
+        });
+    },
   },
 };
 </script>
@@ -495,7 +555,7 @@ li.game span {
 
 li.game-top {
   border-bottom: 1px solid #00bc8c;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 li.game-spacer {
@@ -542,12 +602,11 @@ li.game-bottom {
   border-top: 1px solid #00bc8c;
   cursor: pointer;
 }
- li.game.loser {
+li.game.loser {
   text-decoration: line-through;
   color: orangered;
- }
+}
 .btn.submit {
   float: right;
 }
-
 </style>

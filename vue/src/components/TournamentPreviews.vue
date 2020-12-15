@@ -39,13 +39,27 @@
   </table>
 </template>
 <script>
+
+import TournamentService from "../services/TournamentService.js"
+
 export default {
   name: "tournament-previews",
   computed: {
     tournaments() {
       return this.$store.state.tournaments;
     },
-  },
+      },
+    created() {
+      TournamentService.getAllTournaments()
+      .then(response => {
+        if (response.status == 200) {
+          this.$store.state.tournaments = response.data;
+        }
+      })
+      .catch(e => {
+        console.error("An error occurred while fetching tournament data: " + e)
+      })
+    },
 };
 </script>
 
