@@ -22,6 +22,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{tournamentId}")]
+        [AllowAnonymous]
         public IActionResult GetMatches(int tournamentId)
         {
             List<Match> matches = new List<Match>();
