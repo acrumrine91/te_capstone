@@ -180,7 +180,7 @@ export default {
   name: "bracket",
   data() {
     return {
-      usersInTourney: this.$store.state.users,
+      usersInTourney: [],
       roundOneMatches: [],
       roundTwoMatches: [],
       roundThreeMatches: [],
@@ -191,6 +191,8 @@ export default {
     };
   },
   created() {
+    this.usersInTourney = this.setInitialUsers();
+
     this.roundOneMatches = this.buildOfficialMatchups();
     this.roundTwoMatches = this.buildBlankMatchups(2);
     this.roundThreeMatches = this.buildBlankMatchups(4);
@@ -200,6 +202,50 @@ export default {
     this.roundSevenMatches = this.buildBlankMatchups(64);
   },
   methods: {
+    setInitialUsers(){
+      matchService.getAllMatches(this.$route.params.tournamentId)
+        .then(response => {
+          if(response.status == 200){
+            response.data.foreach(match => {
+              if (!this.usersInTourney.contains(match.TopUser)){
+                this.usersInTourney = this.usersInTourney.replace("TBD", match.TopUser)
+              }
+              if (!this.usersInTourney.contains(match.BottomUser)){
+                this.usersInTourney = this.usersInTourney.replace("TBD", match.BottomUser)
+              }
+            })
+          }
+        })
+        .catch(e => {
+          console.log("no user data found: " + e)
+          if(!this.usersInTourney){
+            let maxUsers = 0;
+      let tbdUsers = [];
+     const currTourn = this.$store.state.tournaments.find(tournament => tournament.tournamentId == this.$route.tournamentId);
+      if(currTourn.size == "Small (Up to 8)"){
+        maxUsers = 8;
+      }
+      else if(currTourn.size == "Medium (Up to 16)"){
+        maxUsers = 16;
+      }
+      else if(currTourn.size == "Large (Up to 32)"){
+        maxUsers = 32;
+      }
+      else{
+        maxUsers = 64;
+      }
+    for(let i = 0; i < (maxUsers); i++){
+      const newUser = "TBD"
+      
+      tbdUsers.push(newUser)
+    }
+
+    return tbdUsers;
+      }
+        
+      })
+
+    },
     declareWinner(match, winner) {
       if (winner == match.topUser) {
         match.topUserWon = "true";
@@ -348,18 +394,18 @@ export default {
     buildOfficialMatchups() {
       const matchup = [];
       const topUsers = [];
-      for (let i = 0; i < this.$store.state.users.length; i += 2) {
-        topUsers.push(this.$store.state.users[i]);
+      for (let i = 0; i < this.usersInTourney.length; i += 2) {
+        topUsers.push(this.usersInTourney[i]);
       }
       const bottomUsers = [];
-      for (let i = 1; i < this.$store.state.users.length; i += 2) {
-        bottomUsers.push(this.$store.state.users[i]);
+      for (let i = 1; i < this.usersInTourney.length; i += 2) {
+        bottomUsers.push(this.usersInTourney[i]);
       }
       for (let i = 0; i < topUsers.length; i++) {
         matchup[i] = {
           matchId: i,
-          topUser: topUsers[i].username,
-          bottomUser: bottomUsers[i].username,
+          topUser: topUsers[i],
+          bottomUser: bottomUsers[i],
           topUserWon: "",
           roundId: 0
         };

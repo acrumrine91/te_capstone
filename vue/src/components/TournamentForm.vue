@@ -63,10 +63,10 @@
     <br />
     <select class="form-control" required v-model='newTournament.size'>
       <option disabled selected hidden value="">Size?</option>
-      <option value="Small (8 or less)">Small (8 or less)</option>
-      <option value="Medium (9 to 32)">Medium (9 to 32)</option>
-      <option value="Large (33 to 64)">Large (33 to 64)</option>
-      <option value="Massive (65+)">Massive (65+)</option>
+      <option value="Small (Up to 8)">Small (Up to 8)</option>
+      <option value="Medium (Up to 16)">Medium (Up to 16)</option>
+      <option value="Large (Up to 32)">Large (Up to 32)</option>
+      <option value="Massive (Up to 64)">Massive (Up to 64)</option>
     </select>
     <br />
 
