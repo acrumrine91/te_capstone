@@ -30,5 +30,17 @@ namespace Capstone.Controllers
 
             return Ok(matches);
         }
+
+        [HttpPost("{tournamentId}")]
+        public IActionResult AddMatches(int tournamentId, List<Match> matches)
+        {
+
+            int matchesAdded = this.matchesDAO.PostTournamentMatches(matches, tournamentId);
+
+            return Created("/" + tournamentId.ToString(), matches);
+
+      
+
+        }
     }
 }

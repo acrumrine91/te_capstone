@@ -53,7 +53,7 @@ namespace Capstone.DAO
             return allMatches;
         }
 
-        public int PostTournamentMatches(List<Match> matches)
+        public int PostTournamentMatches(List<Match> matches, int tournamentId)
         {
             int rowsAffected = 0;
 
@@ -66,7 +66,7 @@ namespace Capstone.DAO
                 foreach (Match currMatch in matches)
                 {
                     cmd.Parameters.AddWithValue("@tournament_round_id", currMatch.Tournament_Round_MatchId);
-                    cmd.Parameters.AddWithValue("@tournament_id", currMatch.TournamentId);
+                    cmd.Parameters.AddWithValue("@tournament_id", tournamentId);
                     cmd.Parameters.AddWithValue("@round_id", currMatch.RoundId);
                     cmd.Parameters.AddWithValue("@match_id", currMatch.MatchId);
                     cmd.Parameters.AddWithValue("@top_user", currMatch.TopUser);

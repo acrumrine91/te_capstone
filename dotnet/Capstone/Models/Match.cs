@@ -18,7 +18,10 @@ namespace Capstone.Models
             {
                 return $"{TournamentId}:{RoundId}:{MatchId}";
             }
-            set { }
+            set 
+            { 
+
+            }
         }
     }
 }

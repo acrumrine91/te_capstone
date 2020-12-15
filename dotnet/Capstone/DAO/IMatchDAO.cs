@@ -11,6 +11,8 @@ namespace Capstone.DAO
         List<Match> GetAllMatches(int tournamentId);
 
         void UpdateMatchResults(string tournament_round_matchId, string top_user_won);
-        int PostTournamentMatches(List<Match> matches);
+        int PostTournamentMatches(List<Match> matches, int tournamentId);
+
+
     }
 }
