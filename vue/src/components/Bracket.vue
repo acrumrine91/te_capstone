@@ -4,9 +4,19 @@
     <h1>Bracket Preview (Not Final)</h1>
     <br />
     <input
+      v-if="
+        this.$store.state.currentTournament.userId ==
+        this.$store.state.user.userId
+      "
       class="btn submit"
       type="button"
       @click.prevent="submitMatches"
+      value="Save Changes"
+    />
+    <input
+      v-else
+      class="btn submit locked"
+      type="button"
       value="Save Changes"
     />
     <main id="tournament">
@@ -217,9 +227,19 @@
       </ul>
     </main>
     <input
+      v-if="
+        this.$store.state.currentTournament.userId ==
+        this.$store.state.user.userId
+      "
       class="btn submit"
       type="button"
       @click.prevent="submitMatches"
+      value="Save Changes"
+    />
+    <input
+      v-else
+      class="btn submit locked"
+      type="button"
       value="Save Changes"
     />
   </div>
@@ -241,6 +261,8 @@ export default {
       roundFiveMatches: [],
       roundSixMatches: [],
       roundSevenMatches: [],
+      allRounds: [],
+      allMatches: [],
     };
   },
   created() {
@@ -248,52 +270,103 @@ export default {
     // Put all of these below into then block
   },
   methods: {
+    consolidateAllRounds() {
+      this.allRounds =  [
+        this.roundOneMatches,
+        this.roundTwoMatches,
+        this.roundThreeMatches,
+        this.roundFourMatches,
+        this.roundFiveMatches,
+        this.roundSixMatches,
+        this.roundSevenMatches,
+      ];
+    },
+    consolidateAllMatches() {
+      let tempMatchHolder = [];
+      this.allRounds.forEach((round) => {
+        round.forEach((match) => {
+          tempMatchHolder.push(match);
+        });
+      });
+      console.log("Hello" + tempMatchHolder)
+      this.allMatches = tempMatchHolder;
+    },
     setInitialUsers() {
       TournamentService.getAllTournaments()
-      .then(response => {
-        if (response.status == 200) {
-          this.$store.state.tournaments = response.data;
-        }
-      console.log("Filling initial bracket... ");
-        let maxUsers = 0;
-        const currTourn = this.$store.state.tournaments.find(
-          (tournament) =>
-            tournament.tournamentId == this.$route.params.tournamentId
-        );
-        console.log(currTourn);
-        if (currTourn.size == "Small (8 or less)") {
-          maxUsers = 8;
-        } else if (currTourn.size == "Medium (Up to 16)") {
-          maxUsers = 16;
-        } else if (currTourn.size == "Large (Up to 32)") {
-          maxUsers = 32;
-        } else {
-          maxUsers = 64;
-        }
-        for (let i = 0; i < maxUsers; i++) {
-          //const newUser = "TBD";
-          const newUser = (Math.floor(Math.random() * 1000)).toString()
-  
-          this.usersInTourney.push(newUser);
-        }
-      matchService
-        .getAllMatches(this.$route.params.tournamentId)
         .then((response) => {
           if (response.status == 200) {
-            response.data.forEach((match) => {
-              if (!this.usersInTourney.contains(match.TopUser)) {
-                this.usersInTourney = this.usersInTourney.replace(
-                  "TBD",
-                  match.TopUser
+            this.$store.state.tournaments = response.data;
+          }
+          console.log("Filling initial bracket... ");
+          let maxUsers = 0;
+          this.$store.state.currentTournament = this.$store.state.tournaments.find(
+            (tournament) =>
+              tournament.tournamentId == this.$route.params.tournamentId
+          );
+          console.log(this.$store.state.currentTournament);
+          if (this.$store.state.currentTournament.size == "Small (Up to 8)") {
+            maxUsers = 8;
+          } else if (
+            this.$store.state.currentTournament.size == "Medium (Up to 16)"
+          ) {
+            maxUsers = 16;
+          } else if (
+            this.$store.state.currentTournament.size == "Large (Up to 32)"
+          ) {
+            maxUsers = 32;
+          } else {
+            maxUsers = 64;
+          }
+          for (let i = 0; i < maxUsers; i++) {
+            const newUser = "TBD";
+            // const newUser = "UserNumber " + (Math.floor(Math.random() * 100)).toString()
+
+            this.usersInTourney.push(newUser);
+          }
+          matchService
+            .getAllMatches(this.$route.params.tournamentId)
+            .then((response) => {
+              if (response.status == 200) {
+                response.data.forEach((match) => {
+                  if (!this.usersInTourney.contains(match.TopUser)) {
+                    this.usersInTourney = this.usersInTourney.replace(
+                      "TBD",
+                      match.TopUser
+                    );
+                  }
+                  if (!this.usersInTourney.contains(match.BottomUser)) {
+                    this.usersInTourney = this.usersInTourney.replace(
+                      "TBD",
+                      match.BottomUser
+                    );
+                  }
+                });
+                this.roundOneMatches = this.buildOfficialMatchups();
+                this.roundTwoMatches = this.buildBlankMatchups(2);
+                this.roundThreeMatches = this.buildBlankMatchups(4);
+                this.roundFourMatches = this.buildBlankMatchups(8);
+                this.roundFiveMatches = this.buildBlankMatchups(16);
+                this.roundSixMatches = this.buildBlankMatchups(32);
+                this.roundSevenMatches = this.buildBlankMatchups(64);
+              } else {
+                this.roundOneMatches = this.buildOfficialMatchups();
+                this.roundTwoMatches = this.buildBlankMatchups(2);
+                this.roundThreeMatches = this.buildBlankMatchups(4);
+                this.roundFourMatches = this.buildBlankMatchups(8);
+                this.roundFiveMatches = this.buildBlankMatchups(16);
+                this.roundSixMatches = this.buildBlankMatchups(32);
+                this.roundSevenMatches = this.buildBlankMatchups(64);
+                matchService.PostTournamentMatches(
+                  this.allMatches,
+                  this.$store.state.currentTournament.tournamentId
                 );
               }
-              if (!this.usersInTourney.contains(match.BottomUser)) {
-                this.usersInTourney = this.usersInTourney.replace(
-                  "TBD",
-                  match.BottomUser
-                );
-              }
+              this.consolidateAllRounds();
+              this.consolidateAllMatches();
             });
+        })
+        .catch((e) => {
+          if (e.status == 404) {
             this.roundOneMatches = this.buildOfficialMatchups();
             this.roundTwoMatches = this.buildBlankMatchups(2);
             this.roundThreeMatches = this.buildBlankMatchups(4);
@@ -301,10 +374,11 @@ export default {
             this.roundFiveMatches = this.buildBlankMatchups(16);
             this.roundSixMatches = this.buildBlankMatchups(32);
             this.roundSevenMatches = this.buildBlankMatchups(64);
+            matchService.PostTournamentMatches(
+              this.allMatches,
+              this.$store.state.currentTournament.tournamentId
+            );
           }
-                  })
-        })
-        .catch(() => {
         });
     },
     declareWinner(match, winner) {
@@ -608,5 +682,9 @@ li.game.loser {
 }
 .btn.submit {
   float: right;
+}
+
+.locked {
+  background-color: grey !important;
 }
 </style>

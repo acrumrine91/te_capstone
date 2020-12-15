@@ -65,7 +65,7 @@ export default {
         role: 'user',
       },
       registrationErrors: false,
-      registrationErrorMsg: 'There were problems registering this user.',
+      registrationErrorMsg: 'Username already taken',
     };
   },
   methods: {
