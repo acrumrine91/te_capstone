@@ -271,7 +271,7 @@ export default {
   },
   methods: {
     consolidateAllRounds() {
-      this.allRounds =  [
+      this.allRounds = [
         this.roundOneMatches,
         this.roundTwoMatches,
         this.roundThreeMatches,
@@ -288,7 +288,6 @@ export default {
           tempMatchHolder.push(match);
         });
       });
-      console.log("Hello" + tempMatchHolder)
       this.allMatches = tempMatchHolder;
     },
     setInitialUsers() {
@@ -327,53 +326,56 @@ export default {
             .getAllMatches(this.$route.params.tournamentId)
             .then((response) => {
               if (response.status == 200) {
-                console.log(response.data)
+                console.log(response.data);
                 if (response.data.length > 0) {
-                response.data.forEach((match) => {
-                  if (!this.usersInTourney.contains(match.TopUser)) {
-                    this.usersInTourney = this.usersInTourney.replace(
-                      "TBD",
-                      match.TopUser
-                    );
-                  }
-                  if (!this.usersInTourney.contains(match.BottomUser)) {
-                    this.usersInTourney = this.usersInTourney.replace(
-                      "TBD",
-                      match.BottomUser
-                    );
-                  }
-                });
-                this.roundOneMatches = this.buildOfficialMatchups();
-                this.roundTwoMatches = this.buildBlankMatchups(2);
-                this.roundThreeMatches = this.buildBlankMatchups(4);
-                this.roundFourMatches = this.buildBlankMatchups(8);
-                this.roundFiveMatches = this.buildBlankMatchups(16);
-                this.roundSixMatches = this.buildBlankMatchups(32);
-                this.roundSevenMatches = this.buildBlankMatchups(64);
-                console.log("help")
-                }
-                else {
-                this.roundOneMatches = this.buildOfficialMatchups();
-                this.roundTwoMatches = this.buildBlankMatchups(2);
-                this.roundThreeMatches = this.buildBlankMatchups(4);
-                this.roundFourMatches = this.buildBlankMatchups(8);
-                this.roundFiveMatches = this.buildBlankMatchups(16);
-                this.roundSixMatches = this.buildBlankMatchups(32);
-                this.roundSevenMatches = this.buildBlankMatchups(64);
+                  response.data.forEach((match) => {
+                    if (!this.usersInTourney.includes(match.TopUser)) {
+                      this.usersInTourney[this.usersInTourney.indexOf(match)] =
+                        match.topUser;
+                    }
+                    if (!this.usersInTourney.includes(match.BottomUser)) {
+                      this.usersInTourney[this.usersInTourney.indexOf(match)] =
+                        match.topUser;
+                    }
+                  });
+                  this.roundOneMatches = this.buildOfficialMatchups();
+                  this.roundTwoMatches = this.buildBlankMatchups(2);
+                  this.roundThreeMatches = this.buildBlankMatchups(4);
+                  this.roundFourMatches = this.buildBlankMatchups(8);
+                  this.roundFiveMatches = this.buildBlankMatchups(16);
+                  this.roundSixMatches = this.buildBlankMatchups(32);
+                  this.roundSevenMatches = this.buildBlankMatchups(64);
+                  console.log("help");
+                } else {
+                  this.roundOneMatches = this.buildOfficialMatchups();
+                  this.roundTwoMatches = this.buildBlankMatchups(2);
+                  this.roundThreeMatches = this.buildBlankMatchups(4);
+                  this.roundFourMatches = this.buildBlankMatchups(8);
+                  this.roundFiveMatches = this.buildBlankMatchups(16);
+                  this.roundSixMatches = this.buildBlankMatchups(32);
+                  this.roundSevenMatches = this.buildBlankMatchups(64);
                   this.consolidateAllRounds();
                   this.consolidateAllMatches();
-                console.log("darkwood is good game")
-                matchService.PostTournamentMatches(
-                  this.allMatches,
-                  this.$store.state.currentTournament.tournamentId
-                ).then(response => { if(response.status === 201){ this.$store.commit('POST_TOURNAMENT_MATCHES', response.data)}});
-              }
+                  console.log("darkwood is good game");
+                  matchService
+                    .PostTournamentMatches(
+                      this.allMatches,
+                      this.$store.state.currentTournament.tournamentId
+                    )
+                    .then((response) => {
+                      if (response.status === 201) {
+                        this.$store.commit(
+                          "POST_TOURNAMENT_MATCHES",
+                          response.data
+                        );
+                      }
+                    });
+                }
               }
             });
         })
         .catch((e) => {
-          console.log(e)
-
+          console.log(e);
         });
     },
     declareWinner(match, winner) {
@@ -542,7 +544,7 @@ export default {
       return matchup;
     },
     submitMatches() {
-      let matchesToSubmit = [
+      let tempMatchHolder = [
         this.roundOneMatches,
         this.roundTwoMatches,
         this.roundThreeMatches,
@@ -551,15 +553,23 @@ export default {
         this.roundSixMatches,
         this.roundSevenMatches,
       ];
+
+      let matchesToSubmit = [];
+      tempMatchHolder.forEach((round) => {
+        round.forEach((match) => {
+          matchesToSubmit.push(match);
+        });
+      });
+
       matchesToSubmit = matchesToSubmit.filter((round) => round.length != 0);
 
       matchService
         .updateMatchResults(matchesToSubmit, this.$route.params.tournamentId)
         .then((response) => {
+          console.log("Did it make it before the if")
           if (response.status === 200) {
-            this.$store.commit("POST_TOURNAMENT_MATCHES", response.data);
-            // Get all matches from DB
-            this.$router.push({ name: "tournament-details" });
+            console.log("Yes it did")
+            this.$store.commit("UPDATE_TOURNAMENT_MATCHES", response.data);
           }
         })
         .catch((e) => {

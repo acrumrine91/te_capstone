@@ -12,7 +12,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private readonly string sqlGetAllMatches = "SELECT * FROM matches WHERE tournament_id = @tournament_id;";
-        private readonly string sqlUpdateMatch = "UPDATE matches SET top_user_won = @top_user_won WHERE tournament_round_match_id = @tournament_round_match_id;";
+        private readonly string sqlUpdateMatches = "UPDATE matches SET top_user_won = @top_user_won, top_user = @top_user, bottom_user = @bottom_user,  WHERE tournament_round_match_id = @tournament_round_match_id;";
         private readonly string sqlPostTournamentMatches = "INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)" +
             "VALUES (@tournament_round_match_id, @tournament_id, @round_id, @match_id, @top_user, @bottom_user);";
 
@@ -78,20 +78,35 @@ namespace Capstone.DAO
             return rowsAffected;
         }
 
-        public void UpdateMatchResults(string tournament_round_matchId, string top_user_won)
+        public int UpdateMatchResults(List<Match> matches, int tournamentId)
         {
-            bool top_user_has_won = top_user_won == "true";
+            int rowsAffected = 0;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+                // tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user
 
-                SqlCommand cmd = new SqlCommand(sqlUpdateMatch, conn);
-                cmd.Parameters.AddWithValue("@top_user_won", top_user_has_won);
-                cmd.Parameters.AddWithValue("@tournament_round_match_id", tournament_round_matchId);
+                foreach (Match currMatch in matches)
+                {
+                    if(currMatch.TopUser == "TBD" && currMatch.BottomUser == "TBD")
+                    {
+                        // DO NOTHING -- DON'T UPDATE THAT MATCH IF BOTH USERS ARE STILL TBD
+                    }
+                    else
+                    {
 
-                cmd.ExecuteNonQuery();
+                    SqlCommand cmd = new SqlCommand(sqlUpdateMatches, conn);
+                    cmd.Parameters.AddWithValue("@tournament_round_match_id", $"{tournamentId}:{currMatch.RoundId}:{currMatch.MatchId}");
+                    cmd.Parameters.AddWithValue("@top_user", currMatch.TopUser);
+                    cmd.Parameters.AddWithValue("@bottom_user", currMatch.BottomUser);
+                        cmd.Parameters.AddWithValue("@top_user_won", currMatch.TopUserWon);
+
+                    rowsAffected += cmd.ExecuteNonQuery();
+                    }
+                }
             }
+            return rowsAffected;
         }
     }
 }

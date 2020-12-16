@@ -184,7 +184,10 @@ export default new Vuex.Store({
       state.tournaments = payload;  
     },
     POST_TOURNAMENT_MATCHES(state, payload) {
-      state.matches = payload;
+      state.currentMatches = payload;
+    },
+    UPDATE_TOURNAMENT_MATCHES(state, payload) {
+      state.currentMatches = payload;
     }
   }
 })

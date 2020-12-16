@@ -36,13 +36,18 @@ namespace Capstone.Controllers
         [AllowAnonymous]
         public IActionResult AddMatches(List<Match> matches, int tournamentId)
         {
-
             int matchesAdded = this.matchesDAO.PostTournamentMatches(matches, tournamentId);
 
             return Created("/" + tournamentId.ToString(), matches);
+        }
 
-      
+        [HttpPut("{tournamentId}")]
+        [Authorize]
+        public IActionResult updateMatches(List<Match> matches, int tournamentId)
+        {
+            int matchesUpdated = this.matchesDAO.UpdateMatchResults(matches, tournamentId);
 
+            return Ok(matches);
         }
     }
 }

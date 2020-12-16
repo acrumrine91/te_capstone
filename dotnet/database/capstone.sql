@@ -50,7 +50,7 @@ CREATE TABLE matches (
 	match_id int NOT NULL,
 	top_user varchar (50) NOT NULL,
 	bottom_user varchar (50) NOT NULL,
-	top_user_won bit,
+	top_user_won varchar (10),
 	CONSTRAINT PK_tournament_round_match_id PRIMARY KEY (tournament_round_match_id));
 	
 	
