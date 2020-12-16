@@ -43,7 +43,7 @@ namespace Capstone.DAO
                         currMatch.MatchId = Convert.ToInt32(reader["match_id"]);
                         currMatch.TopUser = Convert.ToString(reader["top_user"]);
                         currMatch.BottomUser = Convert.ToString(reader["bottom_user"]);
-                        currMatch.TopUserWon = Convert.ToString(reader["top_user_won"]);
+                        currMatch.TopUserWon = Convert.ToString(reader["top_user_won"]).ToLower();
                         currMatch.Tournament_Round_MatchId = Convert.ToString(reader["tournament_round_match_id"]);
 
                         allMatches.Add(currMatch);

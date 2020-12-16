@@ -121,7 +121,7 @@
           <li
             class="game game-top actual-game"
             v-bind:class="{
-              winner: match.topUserWon == 'true',
+              winner: match.topUserWon == 'true' || (roundThreeMatches.length == 1 && match.topUser != 'TBD'),
               loser: match.topUserWon == 'false',
             }"
             @click="declareWinnerRoundFour(match, match.topUser)"
@@ -152,7 +152,7 @@
           <li
             class="game game-top actual-game"
             v-bind:class="{
-              winner: match.topUserWon == 'true',
+              winner: match.topUserWon == 'true' || (roundFourMatches.length == 1 && match.topUser != 'TBD'),
               loser: match.topUserWon == 'false',
             }"
             @click="declareWinnerRoundFive(match, match.topUser)"
@@ -182,7 +182,7 @@
           <li
             class="game game-top actual-game"
             v-bind:class="{
-              winner: match.topUserWon == 'true',
+              winner: match.topUserWon == 'true' || (roundFiveMatches.length == 1 && match.topUser != 'TBD'),
               loser: match.topUserWon == 'false',
             }"
             @click="declareWinnerRoundSix(match, match.topUser)"
@@ -211,7 +211,7 @@
           <li
             class="game game-top actual-game"
             v-bind:class="{
-              winner: match.topUserWon == 'true',
+              winner: match.topUserWon == 'true' || (roundSixMatches.length == 1 && match.topUser != 'TBD'),
               loser: match.topUserWon == 'false',
             }"
           >
@@ -430,7 +430,6 @@ export default {
                     }
                       }
                   });
-                  this.roundOneMatches = this.buildOfficialMatchups();
                   this.roundTwoMatches = this.buildBlankMatchups(2);
                   this.roundThreeMatches = this.buildBlankMatchups(4);
                   this.roundFourMatches = this.buildBlankMatchups(8);
@@ -438,6 +437,7 @@ export default {
                   this.roundSixMatches = this.buildBlankMatchups(32);
                   this.roundSevenMatches = this.buildBlankMatchups(64);
                   this.updateLocalMatchInfo(response.data);
+                  this.roundOneMatches = this.buildOfficialMatchups();
                 } else {
                   this.roundOneMatches = this.buildOfficialMatchups();
                   this.roundTwoMatches = this.buildBlankMatchups(2);
@@ -625,11 +625,20 @@ export default {
         bottomUsers.push(this.usersInTourney[i]);
       }
       for (let i = 0; i < topUsers.length; i++) {
-        matchup[i] = {
+       let topUserHasWon = "";
+        this.roundTwoMatches.forEach(match => {
+          if ((match.topUser == topUsers[i] || match.bottomUser == topUsers[i]) && topUserHasWon == "" && topUsers[i] != "TBD") {
+            topUserHasWon = "true";
+          } else if ((match.topUser == bottomUsers[i] || match.bottomUser == bottomUsers[i]) && topUserHasWon == "" && bottomUsers[i] != "TBD") {
+            topUserHasWon = "false";
+          }
+          }
+        )   
+       matchup[i] = {
           matchId: i,
           topUser: topUsers[i],
           bottomUser: bottomUsers[i],
-          topUserWon: "",
+          topUserWon: topUserHasWon,
           roundId: 0,
         };
       }
@@ -670,9 +679,14 @@ export default {
         });
     },
 
-    // updateLocalMatchInfo(dBMatches) {
-
-    // }
+    updateLocalMatchInfo(dBMatches) {
+      this.roundTwoMatches = dBMatches.filter(match => match.roundId == 1);
+      this.roundThreeMatches = dBMatches.filter(match => match.roundId == 2);
+      this.roundFourMatches = dBMatches.filter(match => match.roundId == 3);
+      this.roundFiveMatches = dBMatches.filter(match => match.roundId == 4);
+      this.roundSixMatches = dBMatches.filter(match => match.roundId == 5);
+      this.roundSevenMatches = dBMatches.filter(match => match.roundId == 6);
+    }
   },
 };
 </script>
@@ -721,7 +735,7 @@ li.game {
 
 li.game.winner {
   font-weight: bolder;
-  color: #00bc8c;
+  color: #00bc8c !important;
   text-decoration: none !important;
 }
 li.game span {
