@@ -8,19 +8,15 @@
           this.tournament.name
         }}<img id="name-logo" src="../../public/GULOGO.png" />
       </h1>
-      <h3 class="centered">
-        Registration Type: {{ this.tournament.registrationType }}
-      </h3>
-      <br />
+
       <h3 class="centered">{{ this.tournament.description }}</h3>
       <br />
       <div class="container">
         <div class="row title-row"></div>
         <div class="row">
           <div class="col">
-            <h2 class="category">Tournament Info</h2>
-            <h3>Size: {{ this.tournament.size }}</h3>
-            <h3>Style: {{ this.tournament.style }}</h3>
+            <h2 class="category">Register By</h2>
+            <h3>{{ this.registrationDateTimeSplitter }}</h3>
             <br />
             <div>
               <h2 class="category">Location Info</h2>
@@ -34,13 +30,12 @@
             </div>
           </div>
           <div class="col right">
-            <h2 class="category">Match Info</h2>
-            <h3>Match Size: {{ this.tournament.matchSize }}</h3>
-            <h3>Match Style: {{ this.tournament.matchStyle }}</h3>
+            <h2 class="category">Start Date</h2>
+            <h3>{{ this.startDateTimeSplitter }}</h3>
             <br />
-            <h2 class="category">Important Dates</h2>
-            <h3>Register By: {{ this.registrationDateTimeSplitter }}</h3>
-            <h3>Start Date: {{ this.startDateTimeSplitter }}</h3>
+            <h2 class="category">Tournament Info</h2>
+            <h3>Size: {{ this.tournament.size }}</h3>
+            <h3>Style: {{ this.tournament.style }}</h3>
           </div>
         </div>
       </div>
@@ -116,8 +111,9 @@ export default {
   text-align: center;
 }
 h2 {
-  text-decoration: underline;
+  text-decoration: underline double;
   text-decoration-color: #bc0077;
+  text-decoration-thickness: 2px;
 }
 .row {
   text-align: center;
@@ -128,9 +124,14 @@ h2 {
   text-decoration: underline;
 }
 #name-logo {
-  height: 60px;
-  width: 60px;
-  margin: 0px 20px 7px;
+  height: 70px;
+  width: 70px;
+  margin: 0px 20px 14px;
+}
+
+h1 {
+  text-decoration: underline overline double;
+  text-decoration-color: #bc0077;
 }
 
 </style>

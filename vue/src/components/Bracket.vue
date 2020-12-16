@@ -9,7 +9,9 @@
       />
     </div>
     <br />
-    <h1>Bracket Preview (Not Final)</h1>
+    <br />
+    <h1 class="ColoredTitle"> Current Tournament Bracket </h1>
+    <br />
     <br />
     <input
       v-if="
@@ -817,5 +819,11 @@ div.center {
 
 .locked {
   background-color: grey !important;
+}
+
+.ColoredTitle {
+  color: #00bc8c;
+  text-decoration: underline overline double;
+  text-decoration-color: #bc0077;
 }
 </style>

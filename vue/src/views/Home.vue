@@ -3,13 +3,14 @@
     <br />
     <h1> <img src="../../public/GULOGO.png" id="pre-title" />
       Welcome to Gauntlet
+      <img src="../../public/GULOGO.png" id="pre-title" />
     </h1>
     <div > 
     <img src="../../public/dark.jpg" id="home-image"/>
     </div>
     <br />
     <br />
-    <h5>Your one stop shop to create, organize, or join any type of tournament!</h5>
+    <h5>Your one stop shop to create, organize, and join any type of tournament!</h5>
     <br />
     <div id="button-center">
     <router-link class="submit" tag="button" v-bind:to="{name: 'create-tournament'}">
@@ -51,7 +52,7 @@ export default {
 #pre-title {
   height: 100px;
   width: 100px;
-  margin-bottom: 7px;
+  margin-bottom: 14px;
 }
 
 #home-image {
@@ -64,6 +65,7 @@ export default {
 
 h1 {
   text-align: center;
+  color: #00bc8c;
 }
 h5 {
   text-align: center;

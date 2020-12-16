@@ -11,8 +11,8 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
 
-        private string sqlCreateTournament = "INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, match_style, match_size, description, registration_closed_date, start_date, registration_type)" +
-            "VALUES (@user_id, @name, @in_person, @zip_code, @link, @size, @style, @match_style, @match_size, @description, @registration_closed_date, @start_date, @registration_type); SELECT @@IDENTITY";
+        private string sqlCreateTournament = "INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, description, registration_closed_date, start_date, registration_type)" +
+            "VALUES (@user_id, @name, @in_person, @zip_code, @link, @size, @style, @description, @registration_closed_date, @start_date, @registration_type); SELECT @@IDENTITY";
 
         private string sqlGetAllTournaments = "SELECT * FROM tournaments;";
 
@@ -37,8 +37,6 @@ namespace Capstone.DAO
                 cmd.Parameters.AddWithValue("@link", newTournament.Link);
                 cmd.Parameters.AddWithValue("@size", newTournament.Size);
                 cmd.Parameters.AddWithValue("@style", newTournament.Style);
-                cmd.Parameters.AddWithValue("@match_style", newTournament.MatchStyle);
-                cmd.Parameters.AddWithValue("@match_size", newTournament.MatchSize);
                 cmd.Parameters.AddWithValue("@description", newTournament.Description);
                 cmd.Parameters.AddWithValue("@registration_closed_date", newTournament.RegistrationClosedDate);
                 cmd.Parameters.AddWithValue("@start_date", newTournament.StartDate);
@@ -74,8 +72,6 @@ namespace Capstone.DAO
                         currTourn.Link = Convert.ToString(reader["link"]);
                         currTourn.Size = Convert.ToString(reader["size"]);
                         currTourn.Style = Convert.ToString(reader["style"]);
-                        currTourn.MatchStyle = Convert.ToString(reader["match_style"]);
-                        currTourn.MatchSize = Convert.ToInt32(reader["match_size"]);
                         currTourn.Description = Convert.ToString(reader["description"]);
                         currTourn.RegistrationClosedDate = Convert.ToDateTime(reader["registration_closed_date"]);
                         currTourn.StartDate = Convert.ToDateTime(reader["start_date"]);

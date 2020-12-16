@@ -15,8 +15,6 @@ namespace Capstone.Models
         public string Link { get; set; }
         public string Size { get; set; }
         public string Style { get; set; }
-        public string MatchStyle { get; set; }
-        public int MatchSize { get; set; }
         public string Description { get; set; }
         public DateTime RegistrationClosedDate { get; set; }
         public DateTime StartDate { get; set;}
