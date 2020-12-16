@@ -34,8 +34,6 @@ CREATE TABLE tournaments (
 	link varchar (200),
 	size varchar (20) NOT NULL,
 	style varchar (10) NOT NULL,
-	match_style varchar (20) NOT NULL,
-	match_size int NOT NULL,
 	description varchar (5000) NOT NULL,
 	registration_closed_date datetime NOT NULL,
 	start_date datetime NOT NULL,
