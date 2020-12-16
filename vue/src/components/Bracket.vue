@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="center">
+      <input
+        type="button"
+        class="btn submit centered"
+        value="Join Tournament"
+        @click.prevent="joinUserToTournament"
+      />
+    </div>
     <br />
     <h1>Bracket Preview (Not Final)</h1>
     <br />
@@ -267,9 +275,90 @@ export default {
   },
   created() {
     this.setInitialUsers();
-    // Put all of these below into then block
   },
   methods: {
+    joinUserToTournament() {
+      if (!this.$store.state.user.username) {
+        this.$router.push({ name: "login" });
+      } else if (
+        this.usersInTourney.includes(this.$store.state.user.username)
+      ) {
+        console.log("You are already in this tournament!");
+      } else {
+        this.usersInTourney[
+          this.usersInTourney.indexOf("TBD")
+        ] = this.$store.state.user.username;
+        this.roundOneMatches = this.buildOfficialMatchups();
+
+        this.consolidateAllRounds();
+        this.consolidateAllMatches();
+
+       matchService
+        .updateMatchResults(this.allMatches, this.$route.params.tournamentId)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$store.commit("UPDATE_TOURNAMENT_MATCHES", this.allMatches);
+          }
+        })
+        .catch((e) => {
+          console.log("Error updating bracket! " + e.message);
+        });
+        // matchService
+        //     .getAllMatches(this.$route.params.tournamentId)
+        //     .then((response) => {
+        //       if (response.status == 200) {
+        //         console.log(response.data);
+        //         if (response.data.length > 0) {
+        //           response.data.forEach((match) => {
+        //             if (!this.usersInTourney.includes(match.TopUser)) {
+        //               this.usersInTourney[this.usersInTourney.indexOf(match)] =
+        //                 match.topUser;
+        //             }
+        //             if (!this.usersInTourney.includes(match.BottomUser)) {
+        //               this.usersInTourney[this.usersInTourney.indexOf(match)] =
+        //                 match.topUser;
+        //             }
+        //           });
+        //           this.roundOneMatches = this.buildOfficialMatchups();
+        //           this.roundTwoMatches = this.buildBlankMatchups(2);
+        //           this.roundThreeMatches = this.buildBlankMatchups(4);
+        //           this.roundFourMatches = this.buildBlankMatchups(8);
+        //           this.roundFiveMatches = this.buildBlankMatchups(16);
+        //           this.roundSixMatches = this.buildBlankMatchups(32);
+        //           this.roundSevenMatches = this.buildBlankMatchups(64);
+        //           console.log("help");
+        //         } else {
+        //           this.roundOneMatches = this.buildOfficialMatchups();
+        //           this.roundTwoMatches = this.buildBlankMatchups(2);
+        //           this.roundThreeMatches = this.buildBlankMatchups(4);
+        //           this.roundFourMatches = this.buildBlankMatchups(8);
+        //           this.roundFiveMatches = this.buildBlankMatchups(16);
+        //           this.roundSixMatches = this.buildBlankMatchups(32);
+        //           this.roundSevenMatches = this.buildBlankMatchups(64);
+        //           this.consolidateAllRounds();
+        //           this.consolidateAllMatches();
+        //           console.log("darkwood is good game");
+        //           matchService
+        //             .PostTournamentMatches(
+        //               this.allMatches,
+        //               this.$store.state.currentTournament.tournamentId
+        //             )
+        //             .then((response) => {
+        //               if (response.status === 201) {
+        //                 this.$store.commit(
+        //                   "POST_TOURNAMENT_MATCHES",
+        //                   response.data
+        //                 );
+        //               }
+        //             });
+        //         }
+        //       }
+        //     })
+        // .catch((e) => {
+        //   console.log(e);
+        // });
+      }
+    },
     consolidateAllRounds() {
       this.allRounds = [
         this.roundOneMatches,
@@ -290,7 +379,7 @@ export default {
       });
       this.allMatches = tempMatchHolder;
     },
-    setInitialUsers() {
+    setInitialUsers() { //This method is failing to update the users from the database
       TournamentService.getAllTournaments()
         .then((response) => {
           if (response.status == 200) {
@@ -329,14 +418,17 @@ export default {
                 console.log(response.data);
                 if (response.data.length > 0) {
                   response.data.forEach((match) => {
-                    if (!this.usersInTourney.includes(match.TopUser)) {
-                      this.usersInTourney[this.usersInTourney.indexOf(match)] =
+                    if (match.roundId == 0) {
+
+                      if (!this.usersInTourney.includes(match.TopUser)) {
+                        this.usersInTourney[this.usersInTourney.indexOf("TBD")] =
                         match.topUser;
                     }
                     if (!this.usersInTourney.includes(match.BottomUser)) {
-                      this.usersInTourney[this.usersInTourney.indexOf(match)] =
-                        match.topUser;
+                      this.usersInTourney[this.usersInTourney.indexOf("TBD")] =
+                        match.bottomUser;
                     }
+                      }
                   });
                   this.roundOneMatches = this.buildOfficialMatchups();
                   this.roundTwoMatches = this.buildBlankMatchups(2);
@@ -345,7 +437,7 @@ export default {
                   this.roundFiveMatches = this.buildBlankMatchups(16);
                   this.roundSixMatches = this.buildBlankMatchups(32);
                   this.roundSevenMatches = this.buildBlankMatchups(64);
-                  console.log("help");
+                  this.updateLocalMatchInfo(response.data);
                 } else {
                   this.roundOneMatches = this.buildOfficialMatchups();
                   this.roundTwoMatches = this.buildBlankMatchups(2);
@@ -543,6 +635,7 @@ export default {
       }
       return matchup;
     },
+
     submitMatches() {
       let tempMatchHolder = [
         this.roundOneMatches,
@@ -566,9 +659,9 @@ export default {
       matchService
         .updateMatchResults(matchesToSubmit, this.$route.params.tournamentId)
         .then((response) => {
-          console.log("Did it make it before the if")
+          console.log("Did it make it before the if");
           if (response.status === 200) {
-            console.log("Yes it did")
+            console.log("Yes it did");
             this.$store.commit("UPDATE_TOURNAMENT_MATCHES", response.data);
           }
         })
@@ -576,6 +669,10 @@ export default {
           console.log("Error updating bracket! " + e.message);
         });
     },
+
+    // updateLocalMatchInfo(dBMatches) {
+
+    // }
   },
 };
 </script>
@@ -683,10 +780,25 @@ li.game-bottom {
 }
 li.game.loser {
   text-decoration: line-through;
-  color: orangered;
+  color: #bc0077;
 }
 .btn.submit {
   float: right;
+}
+
+.btn.submit.centered {
+  float: none;
+  display: inline-block;
+  background-color: #bc0077;
+  border-color: black;
+}
+
+.btn.submit.centered:hover {
+  background-color: #96206b;
+}
+
+div.center {
+  text-align: center;
 }
 
 .locked {

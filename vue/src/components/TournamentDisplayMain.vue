@@ -18,12 +18,12 @@
         <div class="row title-row"></div>
         <div class="row">
           <div class="col">
-            <h2>Tournament Info</h2>
+            <h2 class="category">Tournament Info</h2>
             <h3>Size: {{ this.tournament.size }}</h3>
             <h3>Style: {{ this.tournament.style }}</h3>
             <br />
             <div>
-              <h2>Location Info</h2>
+              <h2 class="category">Location Info</h2>
               <h3 v-if="this.tournament.inPerson">Location: In-Person</h3>
               <h3 v-else>Location: Online</h3>
               <h3 v-if="this.tournament.inPerson">
@@ -34,11 +34,11 @@
             </div>
           </div>
           <div class="col right">
-            <h2>Match Info</h2>
+            <h2 class="category">Match Info</h2>
             <h3>Match Size: {{ this.tournament.matchSize }}</h3>
             <h3>Match Style: {{ this.tournament.matchStyle }}</h3>
             <br />
-            <h2>Important Dates</h2>
+            <h2 class="category">Important Dates</h2>
             <h3>Register By: {{ this.registrationDateTimeSplitter }}</h3>
             <h3>Start Date: {{ this.startDateTimeSplitter }}</h3>
           </div>
@@ -117,6 +117,7 @@ export default {
 }
 h2 {
   text-decoration: underline;
+  text-decoration-color: #bc0077;
 }
 .row {
   text-align: center;
@@ -131,4 +132,5 @@ h2 {
   width: 60px;
   margin: 0px 20px 7px;
 }
+
 </style>

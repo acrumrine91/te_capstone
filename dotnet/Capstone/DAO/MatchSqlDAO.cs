@@ -12,7 +12,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private readonly string sqlGetAllMatches = "SELECT * FROM matches WHERE tournament_id = @tournament_id;";
-        private readonly string sqlUpdateMatches = "UPDATE matches SET top_user_won = @top_user_won, top_user = @top_user, bottom_user = @bottom_user,  WHERE tournament_round_match_id = @tournament_round_match_id;";
+        private readonly string sqlUpdateMatches = "UPDATE matches SET top_user_won = @top_user_won, top_user = @top_user, bottom_user = @bottom_user  WHERE tournament_round_match_id = @tournament_round_match_id;";
         private readonly string sqlPostTournamentMatches = "INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)" +
             "VALUES (@tournament_round_match_id, @tournament_id, @round_id, @match_id, @top_user, @bottom_user);";
 
