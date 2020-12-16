@@ -327,6 +327,8 @@ export default {
             .getAllMatches(this.$route.params.tournamentId)
             .then((response) => {
               if (response.status == 200) {
+                console.log(response.data)
+                if (response.data.length > 0) {
                 response.data.forEach((match) => {
                   if (!this.usersInTourney.contains(match.TopUser)) {
                     this.usersInTourney = this.usersInTourney.replace(
@@ -348,7 +350,9 @@ export default {
                 this.roundFiveMatches = this.buildBlankMatchups(16);
                 this.roundSixMatches = this.buildBlankMatchups(32);
                 this.roundSevenMatches = this.buildBlankMatchups(64);
-              } else {
+                console.log("help")
+                }
+                else {
                 this.roundOneMatches = this.buildOfficialMatchups();
                 this.roundTwoMatches = this.buildBlankMatchups(2);
                 this.roundThreeMatches = this.buildBlankMatchups(4);
@@ -356,29 +360,20 @@ export default {
                 this.roundFiveMatches = this.buildBlankMatchups(16);
                 this.roundSixMatches = this.buildBlankMatchups(32);
                 this.roundSevenMatches = this.buildBlankMatchups(64);
+                  this.consolidateAllRounds();
+                  this.consolidateAllMatches();
+                console.log("darkwood is good game")
                 matchService.PostTournamentMatches(
                   this.allMatches,
                   this.$store.state.currentTournament.tournamentId
                 ).then(response => { if(response.status === 201){ this.$store.commit('POST_TOURNAMENT_MATCHES', response.data)}});
               }
-              this.consolidateAllRounds();
-              this.consolidateAllMatches();
+              }
             });
         })
         .catch((e) => {
-          if (e.status == 404) {
-            this.roundOneMatches = this.buildOfficialMatchups();
-            this.roundTwoMatches = this.buildBlankMatchups(2);
-            this.roundThreeMatches = this.buildBlankMatchups(4);
-            this.roundFourMatches = this.buildBlankMatchups(8);
-            this.roundFiveMatches = this.buildBlankMatchups(16);
-            this.roundSixMatches = this.buildBlankMatchups(32);
-            this.roundSevenMatches = this.buildBlankMatchups(64);
-            matchService.PostTournamentMatches(
-              this.allMatches,
-              this.$store.state.currentTournament.tournamentId
-            );
-          }
+          console.log(e)
+
         });
     },
     declareWinner(match, winner) {

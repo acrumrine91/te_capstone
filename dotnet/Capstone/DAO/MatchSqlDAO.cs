@@ -43,7 +43,7 @@ namespace Capstone.DAO
                         currMatch.MatchId = Convert.ToInt32(reader["match_id"]);
                         currMatch.TopUser = Convert.ToString(reader["top_user"]);
                         currMatch.BottomUser = Convert.ToString(reader["bottom_user"]);
-                        currMatch.TopUserWon = Convert.ToBoolean(reader["top_user_won"]);
+                        currMatch.TopUserWon = Convert.ToString(reader["top_user_won"]);
                         currMatch.Tournament_Round_MatchId = Convert.ToString(reader["tournament_round_match_id"]);
 
                         allMatches.Add(currMatch);
@@ -61,11 +61,11 @@ namespace Capstone.DAO
             {
                 conn.Open();
                 // tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user
-                SqlCommand cmd = new SqlCommand(sqlPostTournamentMatches, conn);
 
                 foreach (Match currMatch in matches)
                 {
-                    cmd.Parameters.AddWithValue("@tournament_round_id", currMatch.Tournament_Round_MatchId);
+                    SqlCommand cmd = new SqlCommand(sqlPostTournamentMatches, conn);
+                    cmd.Parameters.AddWithValue("@tournament_round_match_id", $"{tournamentId}:{currMatch.RoundId}:{currMatch.MatchId}");
                     cmd.Parameters.AddWithValue("@tournament_id", tournamentId);
                     cmd.Parameters.AddWithValue("@round_id", currMatch.RoundId);
                     cmd.Parameters.AddWithValue("@match_id", currMatch.MatchId);

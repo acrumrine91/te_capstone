@@ -12,7 +12,7 @@ namespace Capstone.Models
         public int MatchId { get; set; } = 0;
         public string TopUser { get; set; }
         public string BottomUser { get; set; }
-        public bool TopUserWon { get; set; }
+        public string TopUserWon { get; set; }
         public string Tournament_Round_MatchId {
             get
             {
