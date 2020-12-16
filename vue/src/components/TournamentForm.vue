@@ -55,9 +55,9 @@
       <select class="form-control" required v-model='newTournament.registrationType'>
         <option disabled selected hidden value="">Registration Type?</option>
         <option value="Open">Open</option>
-        <option value="Invite Only">Invite Only</option>
+        <!-- <option value="Invite Only">Invite Only</option>
         <option value="Upon Request">Upon Request</option>
-        <option value="Invite or Request">Invite or Request</option>
+        <option value="Invite or Request">Invite or Request</option> -->
       </select>
     </div>
     <br />
@@ -76,7 +76,7 @@
       <option value="Teams">Teams</option>
     </select>
     <br />
-    <select class="form-control" required v-model='newTournament.matchStyle'>
+    <!-- <select class="form-control" required v-model='newTournament.matchStyle'>
       <option disabled selected hidden value="">Match Style?</option>
       <option value="1v1">1v1 (Team vs. Team)</option>
       <option value="FFA">Free for All</option>
@@ -90,7 +90,7 @@
       min="2"
       v-model.number='newTournament.matchSize'
     />
-    <br />
+    <br /> -->
     <textarea
       required
       type="text"
@@ -115,11 +115,12 @@
     <div class="container">
       <div class="row title-row">
       </div>
+      <br />
       <div class="row">
     <div class="col">
-    <h2 v-show="sizeOrStyle">Tournament Info </h2>
-      <h3 v-show="this.newTournament.size">Size: {{this.newTournament.size}}</h3>
-    <h3 v-show="this.newTournament.style">Style: {{this.newTournament.style}}</h3>
+    <h2 v-show="this.newTournament.registrationDate">Register By</h2>
+    <br />
+    <h3 v-show="this.newTournament.registrationDate">{{this.registrationDay}} {{this.registrationTimeDisplay}}</h3>
     <br />
     <div v-show="showLocationHeader">
     <h2>Location Info</h2>
@@ -130,15 +131,16 @@
     </div>
     </div>
     <div class="col right">
-      <h2 v-show="matchSizeOrStyle">Match Info</h2>
-    <h3 v-show="this.newTournament.matchSize">Match Size: {{this.newTournament.matchSize}}</h3>
-    <h3 v-show="this.newTournament.matchStyle">Match Style: {{this.newTournament.matchStyle}}</h3>
+      <h2 v-show="this.newTournament.startDate">Start Date</h2>
     <br />
-    <h2 v-show="registrationDateOrStartDate">Important Dates</h2>
-    <h3 v-show="this.newTournament.registrationDate">Register By: {{this.registrationDay}}</h3>
-    <h3 v-show="this.newTournament.registrationDate">{{this.registrationTimeDisplay}}</h3>
-    <h3 v-show="this.newTournament.startDate">Start Date: {{this.startDay}}</h3>
-    <h3 v-show="this.newTournament.startDate">{{this.startTimeDisplay}}</h3>
+    <h3 v-show="this.newTournament.startDate">{{this.startDay}} {{this.startTimeDisplay}}</h3>
+    <br />
+    <h2 v-show="sizeOrStyle">Tournament Info </h2>
+      <h3 v-show="this.newTournament.size">Size: {{this.newTournament.size}}</h3>
+    <h3 v-show="this.newTournament.style">Style: {{this.newTournament.style}}</h3>
+    <!-- <h3 v-show="this.newTournament.startDate">{{this.startTimeDisplay}}</h3> -->
+    <br />
+    <!-- <h3 v-show="this.newTournament.registrationDate">{{this.registrationTimeDisplay}}</h3> -->
       </div>
       </div>
   </div>
