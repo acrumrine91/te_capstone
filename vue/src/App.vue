@@ -52,6 +52,10 @@ export default {
 <!-- Application-Wide Styles go here. 
      Any valid CSS or SCSS is allowable here. See https://sass-lang.com/documentation/style-rules for info on SCSS -->
 <style lang="scss">
+* {
+  cursor: url("../public/realglove3.png"),  auto;
+
+}
  #logo {
    height: 16px;
    width: 16px;
