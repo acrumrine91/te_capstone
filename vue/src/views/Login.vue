@@ -1,7 +1,9 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <br />
+      <h1 id="signIn" class="h3 mb-3 font-weight-normal">Who dares to brave the Gauntlet?</h1>
+      <br />
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -36,8 +38,8 @@
           required />
       </div>
       <div class="form-group">
-        <router-link :to="{ name: 'register' }">Need an Account? | </router-link>
-        <router-link :to="{ name: 'home' }">Browse as a Guest</router-link>
+        <router-link class="magenta" :to="{ name: 'register' }">Need an Account? | </router-link>
+        <router-link class="magenta" :to="{ name: 'home' }">Browse as a Guest</router-link>
       </div>
       <button class="btn" id="submit" type="submit">Sign in</button>
     </form>
@@ -111,6 +113,14 @@ export default {
 
 #submit:hover {
   background-color: #1a8a6e;
+}
+
+#signIn {
+  text-decoration: none;
+}
+
+.magenta {
+  color: #bc0077 !important;
 }
 
 </style>

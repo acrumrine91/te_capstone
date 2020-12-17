@@ -74,7 +74,7 @@ thead th {
   color: #00bc8c;
   font-size: 14pt;
   text-align: center;
-  border: 4px solid white;
+  border: 4px solid #bc0077;
   padding: 0 10px;
   border-top-width: 0px;
 }
@@ -87,7 +87,7 @@ th:first-child {
 td {
   padding: 5px;
   color: white;
-  border-color: #00bc8c;
+  border-color: #bc0077;
   border-width: 4px;
   border-style: solid;
   border-bottom-width: 6px;

@@ -1,7 +1,9 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+      <br />
+      <h1 class="h3 mb-3 font-weight-normal" id="header">Create Account</h1>
+      <br />
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -43,9 +45,9 @@
           required />
       </div>
       <div class="form-group">
-        <router-link :to="{ name: 'login' }">Have an account?</router-link>
+        <router-link class="magenta" :to="{ name: 'login' }">Have an account?</router-link>
       </div>
-      <br/>
+      
       <input type="button"  id="submit" value ="Create Account" @click="register()"/>   
     </form>
   </div>
@@ -122,5 +124,13 @@ export default {
 
 #submit:hover {
   background-color: #1a8a6e;
+}
+
+#header {
+  text-decoration: none;
+}
+
+.magenta {
+  color: #bc0077;
 }
 </style>

@@ -106,7 +106,8 @@
   <br />
   <br />
   <div class="preview">
-    <h1 class="centered">----------Preview----------</h1>
+    <h1 class="centered" id="previewhead">----------Preview----------</h1>
+    <br />
     <h1 class="centered" v-if="this.newTournament.name"><img id="name-logo" src="../../public/GULOGO.png" />{{this.newTournament.name}}<img id="name-logo" src="../../public/GULOGO.png" /></h1>
     <h3 class="centered" v-show="this.newTournament.registrationType">Registration Type: {{this.newTournament.registrationType}}</h3>
     <br />
@@ -384,5 +385,8 @@ h2 {
   height: 60px;
   width: 60px;
   margin:0px 20px 7px;
+}
+#previewhead {
+  text-decoration: none;
 }
 </style>
