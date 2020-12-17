@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col">
             <h2 class="category">Register By</h2>
-            <h3>{{ this.registrationDateTimeSplitter }}</h3>
+            <h3>{{ this.registrationDateDisplay }}</h3>
             <br />
             <div>
               <h2 class="category">Location Info</h2>
@@ -31,7 +31,7 @@
           </div>
           <div class="col right">
             <h2 class="category">Start Date</h2>
-            <h3>{{ this.startDateTimeSplitter }}</h3>
+            <h3>{{ this.startDateDisplay }}</h3>
             <br />
             <h2 class="category">Tournament Info</h2>
             <h3>Size: {{ this.tournament.size }}</h3>
@@ -98,6 +98,18 @@ export default {
       }
 
       return dateAndTime[0] + " @ " + hours + ":" + minutes[1];
+    },
+
+    registrationDateDisplay() {
+      let date = this.registrationDateTimeSplitter
+      date = date.split("-");
+      return date[1] + "-" + date[2].substring(0,2) + "-" + date[0] + " " +  date[2].substring(3);
+    },
+    
+    startDateDisplay() {
+let date = this.startDateTimeSplitter
+      date = date.split("-");
+      return date[1] + "-" + date[2].substring(0,2) + "-" + date[0] + " " +  date[2].substring(3);
     },
   },
 };

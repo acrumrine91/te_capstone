@@ -176,8 +176,6 @@ export default {
         registrationType: this.newTournament.registrationType,
         size: this.newTournament.size,
         style: this.newTournament.style,
-        matchSize: this.newTournament.matchSize,
-        matchStyle: this.newTournament.matchStyle,
         description: this.newTournament.description,
         registrationClosedDate: this.newTournament.registrationDate, // These need to be in "yyyy-mm-dd hh:mi:ss" format
         startDate: this.newTournament.startDate,
@@ -198,8 +196,6 @@ export default {
         this.newTournament.registrationType = "";
         this.newTournament.size = "";
         this.newTournament.style = "";
-        this.newTournament.matchSize = "";
-        this.newTournament.matchStyle = "";
         this.newTournament.description = "";
         this.newTournament.userId = 0;
         this.newTournament.startDate = "";
@@ -231,8 +227,6 @@ export default {
         registrationType: "",
         size: "",
         style: "",
-        matchSize: "",
-        matchStyle: "",
         description: "",
         userId: 0,
         registrationDate: "",
