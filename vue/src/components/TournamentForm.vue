@@ -1,7 +1,6 @@
 <template>
   <div class="form-group">
     <input required type="text" placeholder=" Name?" class="form-control" v-model='newTournament.name'/>
-
     <div class="btncontainer">
       <input type="radio" class="btn" @change="isChecked" name="IRL" :value="false" v-model='newTournament.inPerson'/>
       <label>Online</label>
@@ -100,7 +99,8 @@
       v-model='newTournament.description'
     />
     <br />
-    <input type="button" class="right" id="submit" value="Create Tournament" @click.prevent="addTournament()"/>
+    <input v-if="newTournament.name != ''" type="button" class="right" id="submit" value="Create Tournament" @click.prevent="addTournament()"/>
+    <input v-else type="button" class="right" id="null" value="Create Tournament"/>
   <br />
   <br />
   <br />
@@ -316,6 +316,16 @@ export default {
   height: 50px;
   border-radius: 12px;
   background-color: #00bc8c;
+  outline: none;
+  font-weight: bold;
+}
+
+#null {
+  display: inline-block;
+  width: 160px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: grey;
   outline: none;
   font-weight: bold;
 }
