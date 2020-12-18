@@ -2,7 +2,7 @@
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
       <br />
-      <h1 id="signIn" class="h3 mb-3 font-weight-normal">Who dares to brave the Gauntlet?</h1>
+      <h1 id="signIn" class="h3 mb-3 font-weight-normal">Who dares brave the Gauntlet?</h1>
       <br />
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!

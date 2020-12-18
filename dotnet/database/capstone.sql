@@ -50,13 +50,59 @@ CREATE TABLE matches (
 	bottom_user varchar (50) NOT NULL,
 	top_user_won varchar (10),
 	CONSTRAINT PK_tournament_round_match_id PRIMARY KEY (tournament_round_match_id));
-	
-	
 
+	INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, description, registration_closed_date, start_date, registration_type)
+	VALUES (1, 'The TE Gauntlet', 1, 43210, '', 'Small (Up to 8)', 'Solo', 'All the instuctors face off in a winner-takes-all duel for the best instructor of all time. Will .NET take the cake, or will it be one of the Java instructors? The only way to find out is to watch!', '2020-12-17 17:00:00.000', '2020-12-18 12:00:00.000', 'Open');
+	INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, description, registration_closed_date, start_date, registration_type)
+	VALUES (2, 'Most Difficult Dance Competition', 0, 0, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Massive (Up to 64)', 'Solo', 'People always used to tell me an online dance tournament would be impossible. All my life I have dreamed of this moment, and now, thanks to Gauntlet, I can host my very own online dance competition. This will fill up quick, JOIN NOW!', '2020-12-17 17:00:00.000', '2020-12-18 12:00:00.000', 'Open');
+	INSERT INTO tournaments (user_id, name, in_person, zip_code, link, size, style, description, registration_closed_date, start_date, registration_type)
+	VALUES (3, 'The Undisputed Best Movie Franchise of All Time', 0, 0, 'IT TAKES PLACE HERE ON THIS PAGE', 'Large (Up to 32)', 'Solo', 'Which movie franchise will make the cut? We are basing results off of YOUR RESPONSES. Vote on your favorite movie franchise and we will determine which franchise left the biggest impact, and thus determine The Undisputed Best Movie Franchise of All Time', '2020-12-17 17:00:00.000', '2020-12-18 12:30:00.000', 'Open');
+
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('1:0:0', 1, 0, 0, 'John Fulton', 'Matty Lange');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('1:0:1', 1, 0, 1, 'Rachelle Rauh', 'Ben Knisley');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('1:0:2', 1, 0, 2, 'Brian Lauvray', 'Steve Carmichael');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('1:0:3', 1, 0, 3, 'Matt Eland', 'Vinny Sanfillipo');
+
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:0', 3, 0, 0, 'Star Wars', 'Star Trek');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:1', 3, 0, 1, 'Jaws', 'Finding Nemo');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:2', 3, 0, 2, 'Spiderman', 'Batman');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:3', 3, 0, 3, 'Scream', 'Scary Movie');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:4', 3, 0, 4, 'Saw', 'Halloween');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:5', 3, 0, 5, 'Friday the 13th', 'Nightmare on Elmstreet');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:6', 3, 0, 6, 'Blade', 'Twilight');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:7', 3, 0, 7, 'Lethal Weapon', 'Die Hard');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:8', 3, 0, 8, 'John Wick', 'The Matrix');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:9', 3, 0, 9, 'Men in Black', 'Alien');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:10', 3, 0, 10, 'James Bond', 'Austin Powers');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:11', 3, 0, 11, 'Avengers', 'X-Men');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:12', 3, 0, 12, 'Fast & Furious', 'Cars');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:13', 3, 0, 13, 'Rocky', 'Rambo');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:14', 3, 0, 14, 'Jurassic Park', 'The Mighty Ducks');
+	INSERT INTO matches (tournament_round_match_id, tournament_id, round_id, match_id, top_user, bottom_user)
+	VALUES ('3:0:15', 3, 0, 15, 'Harry Potter', 'Lord of the Rings');
 
 
 --populate default data: 'password'
-INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'user@gmail.com');
+INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('Tourney_Maker','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'user@gmail.com');
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@gmail.com');
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('youser','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'slartybartyfast@gmail.com');
 INSERT INTO users (username, password_hash, salt, user_role, email) VALUES ('mouse_keyed_yaboy','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'slartybartyfa@gmail.com');
